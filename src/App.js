@@ -6,6 +6,7 @@ import Register from "./auth/Register";
 import Dashboard from "./components/Dashboard";
 import ProtectedLayout from "./components/ProtectedLayout";
 import EmailVerification from './auth/EmailVerification'
+import Missing from "./components/Missing";
 
 function App() {
 
@@ -28,9 +29,11 @@ function App() {
         <Route path="dashboard" element={<ProtectedLayout/>} >
            <Route index element={<Dashboard/>} />     
            
-            
+        
         </Route>
-         {/* Protected Routes */}  
+         {/* Protected Routes */} 
+
+         <Route path="*" element={<Missing/>}/> 
       </Route>   
     </Routes>
   );
