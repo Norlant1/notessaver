@@ -5,14 +5,14 @@ import useAuth from '../hooks/useAuth'
 import { CSSTransition } from 'react-transition-group'
 import axios from  '../api/axios'
 import { useNavigate } from 'react-router-dom'
-
+import useResolution from '../hooks/useResolution'
 
 
 const Header = () => {
   const location = useLocation()
   const {user,setAuth,setUser,setUserId,setNotes,isMenu,setIsMenu} = useAuth()
   const navigate = useNavigate()
-  
+  const {isMobile} = useResolution()
 
 
   const logout = async () => {
@@ -60,8 +60,8 @@ const Header = () => {
 
         {user && location.pathname === '/dashboard' && 
          <div className='auth-link'>
-            <p className='header-username'>{user}</p>
-            <img className='profile-pic' src={require('../images/profile3.jpg')}/>
+           {!isMobile && <p className='header-username'>{user}</p>}
+            {!isMobile && <img className='profile-pic' src={require('../images/profile3.jpg')}/>}
             <button className='menu-button' onClick={()=>{setIsMenu(prev => !prev)}}><img className='profile-menu' src={require('../images/menuButton.png')}/></button>
                        
             <CSSTransition  

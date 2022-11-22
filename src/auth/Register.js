@@ -79,7 +79,7 @@ console.log(counter)
         if(err.includes('username'))setError('username must not have a symbol')
         if(err.includes('email'))setError('Invalid email')
         if(err.includes('[ref:password]'))setError('password does not match')
-        if(err.includes('fails to match the required pattern: /^[a-zA-Z0-9]{7,30}$/'))setError('password length must be at least 7 characters long')
+        if(err.includes('\"password\" length must be at least 7 characters long'))setError('password length must be at least 7 characters long')
 
       }
     }

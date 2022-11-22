@@ -273,8 +273,8 @@ let datas = null;
                            />
 
                     <select disabled={!datas} defaultValue='creation' name='sort' className='sort' onChange={(e)=>{setSort(e.target.value)}}>
-                      <option value='creation'>sort by date create</option>
-                      <option value='modified'>sort by date modify</option>
+                      <option value='creation'>sort by date created</option>
+                      <option value='modified'>sort by date modified</option>
                       <option value='name'>sort by name</option>
                     </select>
                     {isMobile && <div className='createnote-mobile' onClick={showEditor}><img className='createnote-image' name='createNote' src={require('../images/createnote.png')}/>

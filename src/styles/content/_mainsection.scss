@@ -3,7 +3,7 @@
 
 .public-content{
   color: var(--primary-color);
-  padding-top: 12vh;
+  padding-top: 65px;
  }
 
  
@@ -14,7 +14,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 700px;
 
 
     
@@ -124,7 +124,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 120vh;
+  height: 800px;
 
 
   
@@ -364,8 +364,8 @@
     border-style: solid;
     border-width: 1px;
     border-color: rgb(223, 221, 221);
-    padding-top: 20px;
-    box-shadow: inset 0px 1.5px 4px rgba(0, 0, 0, 0.1);
+    padding-top: 10px;
+    box-shadow: inset 0px 0.2px 0px rgba(0, 0, 0, 0.1);
   
 
     
@@ -424,7 +424,7 @@
   .right-section {
     display: flex;
     flex-direction: column;
-    padding: 2em;
+    padding: 4%;
     padding-top: 3em;
     flex-grow: 1;
     position: relative;
@@ -524,13 +524,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      column-gap: 7px;
+      
       
 
       .saveFile {
-        height: 19px;
+        height: 22px;
         opacity: 30%;
-
+        margin-right: 15px;
         &.on {
           opacity: 85%;
           cursor: pointer;
@@ -539,7 +539,7 @@
 
       .deleteFile {
         opacity: 30%;
-        height: 25px;
+        height: 27px;
     
 
         
@@ -574,7 +574,7 @@
     .bodyform{
       font-size: 0.9em;
       box-sizing: border-box;
-      padding: 1em 1.5em 2em 1.5em;
+      padding: 1em 2% 2em 2%;
       width: 100%;
       border-style: solid;
       border-width: 1px;
