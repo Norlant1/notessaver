@@ -13,7 +13,7 @@ const EmailVerification = () => {
 
     const verifyEmail = async() => {
       try {
-       const response = await axiosInstance.get(`/verify/${params.id}/verifyaccount/${params.token}`)
+       const response = await axiosInstance.get(`activate/verify/${params.id}/verifyaccount/${params.token}`)
         
        
        setCurrentMessage(response?.data?.message)

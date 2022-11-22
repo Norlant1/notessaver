@@ -22,7 +22,7 @@ function App() {
         <Route path="register" element={<Register/>} />
         {/* Public Routes */}
         
-        <Route path="verify/:id/verifyaccount/:token" element={<EmailVerification/>}/>
+        <Route path="activate/verify/:id/verifyaccount/:token" element={<EmailVerification/>}/>
 
  
         {/* Protected Routes */}  
