@@ -1,0 +1,595 @@
+@import  '../utils';
+
+
+.public-content{
+  color: var(--primary-color);
+  padding-top: 12vh;
+ }
+
+ 
+
+ .login{
+    height: inherit;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+
+    
+  .login-form {
+    height: 28em;
+    width: 23em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 8px;
+    border-color: rgb(236, 236, 236);
+    row-gap: 20px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+    
+    
+   .login-header {
+      background-color: #202020;
+      width: 100%;
+      height: 70px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      margin-bottom: 20px;
+      color: white;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Shadows Into Light', cursive;
+      font-size: 1.5em;
+      
+    }
+  
+
+    .input-label{
+      font-size: 0.9em;
+      color: #202020;
+
+    }
+
+    .form-input{
+      padding: 8px 3px 8px 8px;
+      width: 17em;
+      border-radius: 3px;
+      outline: none;
+      border-width: 1px;
+      border-color: #e0dcdc;
+      border-style: solid;
+      font-size: 1em;
+
+     
+    }
+
+    .forgot-password{
+      margin-top: 7px;
+      color:  #2c2e32;
+      font-size: 0.8em;
+    }
+
+    .login-button{
+      margin-top: 20px;
+      padding: 8px 8px 8px 8px;
+      width: 17.8em;
+      border-radius: 3px;
+      border-width: 1px;
+      border-color: #202020;
+      background-color: #202020;
+      border-style: solid;
+      font-size: 1em;
+      font-family: 'Shadows Into Light', cursive;
+      color: white;
+      cursor: pointer;
+       
+
+      &.loggingIn {
+        background-color: #535353;
+        border-color: #535353;
+      }
+    }
+
+    .dont-have{
+      font-size: .8em;
+      margin-top: 25px;
+    }
+    .create-account{
+      color:  #2c2e32;
+      font-size: .9em;
+      font-style: italic;
+      
+      
+    }
+
+    .errorLogin{
+      color: red;
+      font-size: 0.8em;
+    }
+  }
+ }
+
+
+ .register{
+  height: inherit;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 120vh;
+
+
+  
+.register-form {
+  height: 36em;
+  width: 23em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 8px;
+  border-color: rgb(236, 236, 236);
+  row-gap: 20px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+  
+  
+ .register-header {
+    background-color: #202020;
+    width: 100%;
+    height: 70px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    margin-bottom: 20px;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Shadows Into Light', cursive;
+    font-size: 1.5em;
+  }
+
+
+  .input-label{
+    font-size: 0.9em;
+    color: #202020;
+
+  }
+
+  .form-input{
+    padding: 8px 3px 8px 8px;
+    width: 17em;
+    border-radius: 3px;
+    outline: none;
+    border-width: 1px;
+    border-color: #e0dcdc;
+    border-style: solid;
+    font-size: 1em;
+
+   
+  }
+
+  
+
+
+  .forgot-password{
+    margin-top: 7px;
+    color:  #2c2e32;
+    font-size: 0.8em;
+  }
+
+   .register-container{
+     display: flex;
+     
+     flex-direction: column;
+     align-items: center;
+     
+   }  
+
+  .register-button{
+    margin-top: 10px;
+    padding: 8px 8px 8px 8px;
+    width: 17.8em;
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: #202020;
+    background-color: #202020;
+    border-style: solid;
+    font-size: 1em;
+    font-family: 'Shadows Into Light', cursive;
+    color: white;
+    cursor: pointer;
+    
+
+    &.signingup{
+      background-color: #535353;
+      border-color: #535353;
+    }
+     
+  }
+
+  .dont-have{
+    font-size: .8em;
+    margin-top: 25px;
+  }
+  .create-account{
+    color:  #2c2e32;
+    font-size: .9em;
+    font-style: italic;
+    
+    
+  }
+
+  .errorLogin{
+    color: red;
+    font-size: 0.8em;
+  }
+
+  .registered{
+    color: rgb(0, 255, 85);
+    font-size: 0.8em;
+  }
+}
+}
+
+
+.verification-page {
+   height: 100vh;
+}
+
+.Dashboard{
+  height: 110vh;
+  display: flex; 
+  flex-direction: row;
+
+
+  
+
+
+  .drag-purpose{
+    width: 330px;
+    padding-right: 1vw;
+    cursor:ew-resize;
+    min-width: 250px;
+    max-width: 500px;
+    user-select: none;
+    
+    @include responsive{
+      width: 290px;
+
+    }
+    @include responsive2{
+      width: 250px;
+    }
+
+    @include responsive3{
+    
+      max-width: none;
+      padding-right: 0px;
+      cursor: default;
+      width: 100vw;
+    }
+
+
+
+    .toolbar{
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      background-color: rgb(248, 248, 248);
+      padding: 15px 0px 15px 10px;
+      width: 100%;
+      cursor: default;
+      box-shadow: 0px 1.5px 4px rgba(0, 0, 0, 0.3);
+      
+      
+
+      
+      .search{
+        outline: none;
+         height: 21px;
+         font-size: 0.9em;
+         border-style: solid;
+         border-width: 1px;
+         border-radius: 3px;
+         border-color: #646464c4;
+         padding-left: 15px;
+         margin-right: 130px;
+         max-width: 300px;
+         border-radius: 20px;
+         
+         
+      }
+  
+      .sort{
+         outline: none;
+         height: 25px;
+         color: #444444;
+         border-radius: 3px;
+         width:150px;
+         margin-top: 10px;
+       
+      }
+
+      .createnote-mobile{
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        right: 10%;
+        top: 23px;
+        user-select: none;
+        cursor: pointer;
+        
+        .createnote-image{
+          height: 25px;
+          opacity: 75%;
+        }
+        
+        .createnote-text{
+          margin-top: 5px;
+           font-size: 0.7em;
+           color: rgb(70, 70, 70);
+           cursor: pointer;
+        }
+      }
+  
+    }
+
+  }
+
+
+  .left-section {
+    box-sizing: border-box;
+    height: calc(110vh - 93px); 
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    overflow-y: scroll;
+    cursor:default;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(223, 221, 221);
+    padding-top: 20px;
+    box-shadow: inset 0px 1.5px 4px rgba(0, 0, 0, 0.1);
+  
+
+    
+
+
+
+    &.inactive {
+      align-items: center;
+    }
+    
+
+    .nonotes{
+      opacity: 65%;
+    }
+
+    
+
+
+
+ 
+
+    .note-container{
+      box-sizing: border-box;
+      padding-left: 1vw;
+      border-bottom-style: solid;
+      border-bottom-width: 1px;
+      border-bottom-color: #adadad;
+  
+
+      .note-title {
+
+        font-weight: 400;
+        font-size: 1.1em;
+        max-height: 1.4em;
+        overflow: hidden;
+        
+     
+      
+       }
+   
+       .date-format{
+         font-size: 0.8em;
+         font-weight: 400;
+         color: #474747;
+       }
+
+       &:hover {
+        background-color: #e7e7e7;
+       }
+    }
+
+   
+  }
+  
+
+  .right-section {
+    display: flex;
+    flex-direction: column;
+    padding: 2em;
+    padding-top: 3em;
+    flex-grow: 1;
+    position: relative;
+
+    
+
+    &.blank{
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .createNote{
+      display: flex;
+      flex-direction: row;
+      column-gap: 10px;
+      height: 150px;
+      width: 380px; 
+      border: none;
+      font-size: 1.6em;
+      background-color: white;
+      cursor: pointer;
+      justify-content: center;
+      align-items: center;
+      border-width: 3px;
+      border-style: dashed;
+      border-radius: 20px;
+      border-color:rgba(173, 173, 173, 0.432);
+      margin-top: 5em;
+      border: none;
+    
+      
+  
+      &:hover {
+       
+         
+      .addnote-text {
+        transition: ease-in-out 0.2s;
+        opacity: 65%;
+        font-size: 1.1em;
+  
+      } 
+    
+  
+      .addnote-icon {
+        transition: ease-in-out 0.2s;
+        opacity: 65%;
+  
+      }
+        
+      }
+  
+      
+      .addnote-text {
+        opacity: 40%;
+        cursor: pointer;
+        transition: ease-in-out 0.2s;
+       
+      } 
+    
+  
+      .addnote-icon {
+        opacity: 40%;
+        height: 30px;
+        cursor: pointer;
+        transition: ease-in-out 0.2s;
+      }
+    
+     
+    }
+   
+  
+  
+
+
+    .exitButton{
+      opacity: 85%;
+      position: absolute;
+      top: 10px;
+      right: 28px;
+      height: 27px;
+      width: 27px;
+      cursor: pointer;
+    }
+
+
+    .title-label{
+      font-weight: 300;
+      font-size: 0.9em;
+      color: #707070;
+    }
+
+    
+    .SDicons {
+      position: absolute;
+      left: 28px;
+      top: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      column-gap: 7px;
+      
+
+      .saveFile {
+        height: 19px;
+        opacity: 30%;
+
+        &.on {
+          opacity: 85%;
+          cursor: pointer;
+        }
+      }
+
+      .deleteFile {
+        opacity: 30%;
+        height: 25px;
+    
+
+        
+        &.on {
+          opacity: 88%;
+          cursor: pointer;
+        }
+      }
+    }
+ 
+   
+    
+     
+
+    .titleform{
+     box-sizing: border-box;
+     width: 100%;
+     margin-bottom: 1em;
+     border: none;
+     border-bottom-style: solid;
+     border-bottom-color: #b9b9b9;
+     border-bottom-width: 1px;
+     outline: none;
+     font-size: 1.1em;
+     padding: 0px 5px 3px 5px;
+     font-family: 'Poppins', sans-serif;
+     font-weight: 400;
+     
+    }
+
+
+    .bodyform{
+      font-size: 0.9em;
+      box-sizing: border-box;
+      padding: 1em 1.5em 2em 1.5em;
+      width: 100%;
+      border-style: solid;
+      border-width: 1px;
+      border-color: #b9b9b9;
+      resize: none;
+      height: 100%;
+      outline: none;
+      font-family: 'Poppins', sans-serif;
+      overflow-y: scroll;
+      font-weight: 400;
+
+    
+    }
+  }
+
+
+}
+ 

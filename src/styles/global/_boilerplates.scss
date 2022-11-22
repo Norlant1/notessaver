@@ -1,0 +1,23 @@
+:root {
+  --primary-color: #202020;
+  --primary-text-color:whitesmoke;
+  --primary-font: 'Poppins', sans-serif;
+  --body-color: #2c2e32;
+  --secondary-font:'Shadows Into Light', cursive;
+}
+
+ 
+h1 {
+  margin: 0px;
+  padding: 0px;
+  
+}
+
+body {
+  
+  margin: 0px;
+  padding: 0px;
+  color: var(--primary-text-color); 
+  font-family: var(--primary-font);
+}
+
