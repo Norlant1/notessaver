@@ -60,8 +60,8 @@ const Login = () => {
   return (
     <div className='login' >    
        <form className='login-form' onSubmit={handleLogin}>
-          <div className='login-header'><span>login</span></div>
-          <div>
+          <div className='login-header'><span>Notes Saver</span></div>
+          <div className='first-login-content'>
             <label className='input-label' htmlFor="username">Email or Username</label><br/>
             <input type='text'
                   name="username"
@@ -71,7 +71,7 @@ const Login = () => {
                   autoFocus={true}
             />
           </div>
-          <div>
+          <div className='second-login-content'>
             <label className='input-label' htmlFor="username">Password</label><br/>
             <input type='password'
                   name="password"

@@ -16,7 +16,6 @@ const useScroll = () => {
 const setActives = (e) =>{
   if(e.target.className === 'drag-purpose' ){
     setActive(true)
-    console.log('on')
   }
 }
 
@@ -24,7 +23,6 @@ const setInactive = () =>{
   
   if(active){
     setActive(false)
-   console.log('off')
   }
 }
 

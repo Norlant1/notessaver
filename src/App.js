@@ -7,6 +7,8 @@ import Dashboard from "./components/Dashboard";
 import ProtectedLayout from "./components/ProtectedLayout";
 import EmailVerification from './auth/EmailVerification'
 import Missing from "./components/Missing";
+import Setting from "./components/Settings/Setting";
+import Account from "./components/Settings/Account";
 
 function App() {
 
@@ -27,13 +29,16 @@ function App() {
  
         {/* Protected Routes */}  
         <Route path="dashboard" element={<ProtectedLayout/>} >
-           <Route index element={<Dashboard/>} />     
-           
-        
+           <Route index element={<Dashboard/>} />           
+        </Route>
+        <Route path="settings" >
+           <Route index element={<Setting/>}/>
+           <Route path="account" element={<Account/>}/>
         </Route>
          {/* Protected Routes */} 
 
          <Route path="*" element={<Missing/>}/> 
+         
       </Route>   
     </Routes>
   );

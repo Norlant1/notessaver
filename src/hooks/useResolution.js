@@ -1,10 +1,10 @@
 import React from 'react'
 import { useState,useEffect } from 'react'
-
+import useAuth from './useAuth'
 
 const useResolution = () => {
 
-
+  const {setIsMenu} = useAuth()
   const [isMobile,setIsMobile] = useState(false)
   const [resolution,setResolution] = useState(window.innerWidth)
 
@@ -27,12 +27,12 @@ const useResolution = () => {
     
       if(resolution <= 800 && !isMobile){
         setIsMobile(true)
-        console.log('true limit')
+        setIsMenu(false)
+        
       }
       
       if(resolution > 800 && isMobile){
         setIsMobile(false)
-        console.log('false limit')
       }
   
      }

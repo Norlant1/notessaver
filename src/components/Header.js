@@ -32,12 +32,21 @@ const Header = () => {
       console.log(error)
     }
   }
+
+
+  const userSetting = () =>{
+    navigate('/settings')
+  }
    
   
+  const mobileSettings = () => {
+    console.log('mobile')
+  }
 
 
-
-
+  const pcSettings = () => {
+    setIsMenu(prev => !prev)
+  }
 
 
   let current = location.pathname.length <= 1 
@@ -62,7 +71,7 @@ const Header = () => {
          <div className='auth-link'>
            {!isMobile && <p className='header-username'>{user}</p>}
             {!isMobile && <img className='profile-pic' src={require('../images/profile3.jpg')}/>}
-            <button className='menu-button' onClick={()=>{setIsMenu(prev => !prev)}}><img className='profile-menu' src={require('../images/menuButton.png')}/></button>
+            <button className='menu-button' onClick={!isMobile ? pcSettings : mobileSettings }><img className='profile-menu' src={require('../images/menuButton.png')}/></button>
                        
             <CSSTransition  
                 classNames='user-setting'
@@ -72,7 +81,7 @@ const Header = () => {
                              
                 >
                  <article className='user-setting'>
-                    <div className='user-setting-container1'><img className='setting' src={require('../images/menuButtons/setting.png')}/><ul className='user-setting-1'>Settings</ul></div>
+                    <div className='user-setting-container1' onClick={userSetting}><img className='setting' src={require('../images/menuButtons/setting.png')}/><ul className='user-setting-1'>Settings</ul></div>
                     <div className='user-setting-container2'><img className='setofnotes' src={require('../images/menuButtons/setofnotes.png')}/><ul className='user-setting-2'>Set of Notes</ul></div>
                     <div className='user-setting-container3'><img className='feedback-button' src={require('../images/menuButtons/feedback.png')}/><ul className='user-setting-3'>Feedback</ul></div>
                     <div className='user-setting-container4' onClick={logout}><img className='logout-button' src={require('../images/menuButtons/logout.png')}/><ul className='user-setting-3'>Sign out</ul></div>

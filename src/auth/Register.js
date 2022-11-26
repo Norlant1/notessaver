@@ -9,6 +9,7 @@ import axios from '../api/axios'
 
 const Register = () => {
 
+
   const [email,setEmail] = useState('')
   const [username,setUsername] = useState('')
   const [password,setPassword] = useState('')
@@ -92,8 +93,8 @@ console.log(counter)
   
     <div className='register' >    
        <form className='register-form' onSubmit={handleRegister}>
-          <div className='register-header'><span>Register</span></div>        
-          <div>
+          <div className='register-header'><span>Notes Saver</span></div>        
+          <div className='first-register-content'>
             <label className='input-label' htmlFor="email">Email or Phone number</label><br/>
             <input type='text'
                   name="email"
@@ -104,7 +105,7 @@ console.log(counter)
                 
             />    
           </div>
-          <div>
+          <div className='second-register-content'>
             <label className='input-label' htmlFor="username">Username</label><br/>
             <input type='text'
                   name="username"
@@ -114,7 +115,7 @@ console.log(counter)
                   
             />
           </div>
-          <div>
+          <div className='third-register-content'>
             <label className='input-label' htmlFor="username">Password</label><br/>
               <input type='password'
                     name="password"
@@ -124,7 +125,7 @@ console.log(counter)
                     
               /> 
           </div>
-          <div>
+          <div className='fourth-register-content'>
             <label className='input-label' htmlFor="confirmPassword">Confirm Password</label><br/>
             <input type='password'
                   name="confirmPassword"

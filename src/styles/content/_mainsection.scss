@@ -20,7 +20,10 @@
     
   .login-form {
     height: 28em;
-    width: 23em;
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+    max-width: 23em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,7 +32,6 @@
     border-width: 1px;
     border-radius: 8px;
     border-color: rgb(236, 236, 236);
-    row-gap: 20px;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
     
     
@@ -50,6 +52,11 @@
       font-size: 1.5em;
       
     }
+
+    .first-login-content, .second-login-content{
+      margin-top: 20px;
+    }
+
   
 
     .input-label{
@@ -139,7 +146,6 @@
   border-width: 1px;
   border-radius: 8px;
   border-color: rgb(236, 236, 236);
-  row-gap: 20px;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
   
   
@@ -158,6 +164,14 @@
     justify-content: center;
     font-family: 'Shadows Into Light', cursive;
     font-size: 1.5em;
+  }
+
+  .first-register-content, .second-register-content, .third-register-content, .fourth-register-content{
+    margin-top: 20px;
+  }
+  
+  .fourth-register-content{
+    margin-bottom: 20px;
   }
 
 
@@ -249,7 +263,7 @@
 }
 
 .Dashboard{
-  height: 110vh;
+  height: 800px;
   display: flex; 
   flex-direction: row;
 
@@ -354,7 +368,7 @@
 
   .left-section {
     box-sizing: border-box;
-    height: calc(110vh - 93px); 
+    height: 710px; 
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -585,11 +599,19 @@
       font-family: 'Poppins', sans-serif;
       overflow-y: scroll;
       font-weight: 400;
+      
 
     
     }
   }
 
 
+}
+
+
+
+
+.Main-Settings{
+  height: 700px;
 }
  
