@@ -8,6 +8,9 @@ const EachNote = ({note,setForm,currentNoteId,setCurrentNoteId,setIsSettings}) =
   
   const setData = () => {
 
+    const state = { 'page_id': 2, 'user_id': 1 }
+    window.history.pushState(state, '')
+
     setIsSettings(prev => {
       return {...prev,isView:true, createState:false, isChange:false}
     })

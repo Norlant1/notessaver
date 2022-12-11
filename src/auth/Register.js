@@ -46,11 +46,11 @@ console.log(counter)
     try{
      
 
-       const response = await axios.post('/register',{email,username,password,confirmPassword})
+       const response = await axios.post('/user',{email,username,password,confirmPassword})
        console.log(response)
        setError(null)
 
-       
+         
   
          setVerify(true)
          clearInterval(animationInterval)
@@ -83,9 +83,19 @@ console.log(counter)
         if(err.includes('\"password\" length must be at least 7 characters long'))setError('password length must be at least 7 characters long')
 
       }
+
+
+
+      else if(error?.message === 'Network Error'){
+        setError(error?.message)
+      }
+      else if(error?.message && !error?.response?.data){
+        setError('error')
+     }
+
     }
 
- 
+ console.log(error)
     
   }
 

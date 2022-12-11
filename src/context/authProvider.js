@@ -7,13 +7,18 @@ const AuthContext = createContext({})
 export const AuthProvider  = ({children}) =>{
   const [user,setUser] = useState('')
   const [notes,setNotes] = useState([])
+  const [currentSetofNotes,setCurrentSetofNotes] = useState('')
   const [error,setError] = useState(null)
-  const [isRefresh,setIsRefresh] = useState(false)
+  const [isForbidden,setIsForbidden] = useState(false)
   const [isLoading,setIsLoading] = useState(true)
   const [auth,setAuth] = useState('')
   const [userId,setUserId] = useState('')
   const [isMenu,setIsMenu] = useState(false)
-  
+  const [isSetOfNotes,setSetOfNotes] = useState(false)
+  const [allSetsOfNotes,setAllSetsOfNotes] = useState([])
+  const [toggler,setToggler] = useState(false)
+  const [firstFetch,setFirstFetch] = useState(true)
+  const [isMenuMobile,setIsMenuMobile] = useState(false)
   
 
   return(
@@ -22,10 +27,16 @@ export const AuthProvider  = ({children}) =>{
       user,setUser,
       notes,setNotes,
       error,setError,
-      isRefresh,setIsRefresh,
+      isForbidden,setIsForbidden,
       isLoading,setIsLoading,
       userId,setUserId,
-      isMenu,setIsMenu
+      isMenu,setIsMenu,
+      isSetOfNotes,setSetOfNotes,
+      currentSetofNotes,setCurrentSetofNotes,
+      allSetsOfNotes,setAllSetsOfNotes,
+      toggler,setToggler,
+      firstFetch,setFirstFetch,
+      isMenuMobile,setIsMenuMobile
       }} >
        {children}
     </AuthContext.Provider>

@@ -4,11 +4,13 @@ import { Link,useLocation,useNavigate } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 import axios, { setToken } from '../api/axios'
 import { decoded } from '../api/axios'
-
+import jwtDecode from 'jwt-decode'
 
 const Login = () => {
-  
-  const {setAuth} = useAuth()
+
+
+
+  const {setAuth,setUser,setUserId,setCurrentSetofNotes} = useAuth()
   const [username,setUsername] = useState('')
   const [password,setPassword] = useState('')
   const navigate = useNavigate()
@@ -40,18 +42,33 @@ const Login = () => {
     try{
       const response = await axios.post('/auth',{username,password})
       setAuth(response.data)
+      console.log(response.data)
  
-        
+      const userInfo = jwtDecode(response?.data?.accessToken)
+      setUser(userInfo.userInfo.username) // set user if the page is rerendered
+      setUserId(userInfo.userInfo.id)
+      setCurrentSetofNotes(userInfo.userInfo.activeSetofNotes)
+
+
       setError(null)
       navigate('/dashboard')     
     }catch(error){
 
-       clearInterval(animationInterval)
+      clearInterval(animationInterval)
+      console.log(error)
        setCounter(0)
        setLoggingIn(false)
-       console.log(error?.response?.data)
        
-       setError(error?.response?.data?.message)
+       if(error?.response?.data?.message){
+        setError(error?.response?.data?.message)
+       }
+       else if(error.message === 'Network Error'){
+        setError(error?.message)
+       }
+       else {
+        setError('error')
+       }
+      
     }
   }
 

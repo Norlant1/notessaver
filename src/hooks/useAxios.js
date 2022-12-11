@@ -8,12 +8,13 @@ const useAxios = () => {
 
   const navigate = useNavigate()
   const location = useLocation()
-  const { setError,
-          isRefresh,setIsRefresh,
-          setIsLoading,
+  const { setError,setNotes,setIsMenu,
+          setIsForbidden,
           auth,setAuth,
-          setUser,user,
-          userId,setUserId
+          setUser,setUserId,
+          setCurrentSetofNotes,
+          currentSetofNotes,
+          setToggler,setFirstFetch
         } = useAuth() 
 
 
@@ -24,82 +25,108 @@ const useAxios = () => {
      Authorization: `Bearer ${auth.accessToken}`
     } // setting config
  }
-
-
-
+ 
 
 
  
-  const fetch = async (authRoute,method,data) => {   
+
+ 
+  const fetch = async (authRoute,method,data,token) => {   
+    // setFirstFetch(false) // set firstFetch to true to not show error during loading of component
+
+    const manualConfig = {
+      headers:{
+       Authorization: `Bearer ${token?.accessToken}`
+      } // setting config
+    }
+
+    const mainConfig = token ? manualConfig : config
     
-    try {
+    
       if(method === 'GET'){
-        var response = await axios.get(authRoute,config)
+        var response = await axios.get(authRoute,mainConfig)
       }
       else if(method === 'POST'){
-        var response = await axios.post(authRoute,data,config)
+        var response = await axios.post(authRoute,data,mainConfig)
       }
        else if(method === 'PATCH'){
-        var response = await axios.patch(authRoute,data,config)
+        var response = await axios.patch(authRoute,data,mainConfig)
        }
        else if(method === 'DELETE'){
-        console.log(config)
-        var response = await axios.delete(authRoute,{...config,data:{id:data}})
+        var response = await axios.delete(authRoute,{...mainConfig,data:{id:data}})
        }
         else{
          await Promise.reject('method is not recognized')
         }
         
         
-        console.log(response?.data)
-      
-
-        const userInfo = jwtDecode(auth.accessToken)
-        setUser(userInfo.userInfo.username) // set user if the page is rerendered
-        setUserId(userInfo.userInfo.id)
        
-        return response?.data    // return the data from response
-    }catch(error){  
-      
-        setError(error)
-        if(error?.response?.status !== 403){
-          setIsRefresh(true) // if not 403, which means the token is not the problem and so we do not need to request a new token just to render error.
-        }                    
-      
-
+        setIsForbidden(false)
+        setError(null)
+        setFirstFetch(true)
         
-    }finally{
-      
-        setIsLoading(false)
-  
-      }
+
+
+        return response?.data    // return the data from response
+    
 
     }
 
-    const refreshToken = async ()=> {
+    const refreshToken = async (value)=> {
         
       try{
 
         const response = await axios.get('/auth/refresh')
         setAuth(response?.data)
-        console.log('refreshed')
+        console.log('token refreshed')
+        
+        const userInfo = jwtDecode(response?.data?.accessToken)
+        setUser(userInfo.userInfo.username) // set user if the page is rerendered
+        setUserId(userInfo.userInfo.id)
+
+
+        setCurrentSetofNotes(currentSetofNotes ? currentSetofNotes :userInfo.userInfo.activeSetofNotes) 
+        // if rerendered, the currentSetofNotes will be empty and so we need to get the value from the decoded token
         
         
-     
+        
+         
         
 
-        setError(null)
        
-        setIsRefresh(true) 
-         // set refresh to true after setting a new token to rerun the useEffect to refetch @Dashboard---codeline #25
+        
+        setFirstFetch(false)
+       
+        !value && setToggler(prev => !prev) // refetch and rerender notes when request token succeeded
+
+ 
+         
         return response.data 
       }catch(error){
 
+        // clean state here
+
+
+        console.log(error)
+        const response = await axios.get('/auth/logout')
+   
+        console.log(response)
+        setAuth('')
+        setUser('')
+        setUserId('')
+        setNotes([])
+        setIsMenu(false)
+
+
+
+        console.log(error)
           navigate('/login',{ state: { from: location }, replace: true })
          //send back to login page when token is refresh expired
       }
     }
 
+    
+    
 
   return {fetch,refreshToken}
 
