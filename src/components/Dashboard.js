@@ -9,7 +9,7 @@ import EachNote from './Notes/EachNote'
 import Setofnotes from './Setofnotes/Setofnotes'
 import { createNoteLocally, deleteNoteLocally, updateNoteLocally } from '../util/setter'
 import MobileMenu from './mobile/MobileMenu'
-
+import MobileSetOfNotes from './mobile/MobileSetOfNotes'
 
 const Dashboard = () => {
 
@@ -27,15 +27,18 @@ const Dashboard = () => {
         setAllSetsOfNotes,currentSetofNotes,
         toggler,
         firstFetch,setFirstFetch,
-        isMenuMobile,
+        isMenuMobile,setIsMenuMobile,
         setUserId,setUser,
-        setAuth} = useAuth()
+        setAuth,
+        isMobileSonVisible, setIsMobileSonVisible,
+        historyState,setHistoryState}
+         = useAuth()
 
 
 const [updateToggle,setUpdateToggle] = useState(false)
 const [createToggle,setCreateToggle] = useState(false)
 const [deleteToggle,setDeleteToggle] = useState(false) 
-const [isWindowPop,setIsWindowPop] = useState(false)
+
 
 
 
@@ -344,35 +347,66 @@ useEffect(()=> {
 
 
  const showEditor = () => { 
-
-  const state = { 'page_id': 1, 'user_id': 1 }
-  window.history.pushState(state, '')
-
+  
+  const state = { createState: true, name: 'createState' }
+  setHistoryState(prev => {
+     return {...prev,currentState:state.name}
+  })
+  window.history.pushState(state, 'createState')
+  
   setCurrentNoteId('')
   setIsSettings(prev => {return {...prev,createState:true}}) // set createState to true. which means the note the current note that is being edited is a newNote and note an existing one,
                                                               // therefore the saveButton knows if it is creating a note or just updating an existing note in the server. 
   setIsSettings(prev => {return {...prev,isView:true}}) // mount the form
  }
-
+ 
  const closeEditor = () => {
+ 
+  window.history.go(-1)
 
-  setCurrentForm({title:'',text:''})
-  setCurrentNoteId('')
-  setIsSettings(prev => {return {...prev,createState:false}})
-  setIsSettings(prev => {return {...prev,isView:false}}) // unmount the form
+  
  }
 
 
+
+
+
  useEffect(()=> {
- 
-  window.onpopstate = (event) => {
 
-        closeEditor()
-    
-    
-  };
 
-},[])
+  const windowPop = () => {
+    
+    if(historyState.currentState === 'mobileMenu'){
+      setIsMenuMobile(false)
+      document.body.style.overflow = ""
+      setHistoryState(prev => {
+        return {...prev,currentState:prev.previousState, previousState:prev.currentState}
+     })
+    }
+  
+  
+    if(historyState.currentState === 'createState' || historyState.currentState === 'editMode'){
+      setCurrentForm({title:'',text:''})
+      setCurrentNoteId('')
+      setIsSettings(prev => {return {...prev,createState:false}})
+      setIsSettings(prev => {return {...prev,isView:false}}) // unmount the form
+
+
+      setHistoryState(prev => {
+        return {...prev,currentState:'', previousState:''}
+     })
+     
+    }
+
+    
+  }
+
+  window.addEventListener('popstate',windowPop);
+   
+
+
+  return ()=> window.removeEventListener('popstate',windowPop)
+},[historyState])
 
 
 
@@ -384,14 +418,14 @@ useEffect(()=> {
 
   return (
     <>
-     {/* // chain ternary */}
+   
       {/* only show error when fetch is failed for the second time */}
      {error && error}
      {isSetOfNotes && !isMobile && <div className='main-setofnotes-container'><Setofnotes/></div>}
      
      
      <MobileMenu/>
-     <div className='Dashboard' onMouseMove={onMouseMove}  onMouseDown={setActives} onMouseUp={setInactive} onClick={()=>{setIsMenu(false)}}> 
+     {!isMobileSonVisible && <div className='Dashboard' onMouseMove={onMouseMove}  onMouseDown={setActives} onMouseUp={setInactive} onClick={()=>{setIsMenu(false)}}> 
      
      
 
@@ -454,7 +488,7 @@ useEffect(()=> {
             </> } 
         </form>}   
      </>}
-    </div>    
+    </div> }   
    
     </>  
   )

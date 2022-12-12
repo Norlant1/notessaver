@@ -10,7 +10,11 @@ import useResolution from '../hooks/useResolution'
 
 const Header = () => {
   const location = useLocation()
-  const {user,setAuth,setUser,setUserId,setNotes,isMenu,setIsMenu,setSetOfNotes,setIsMenuMobile,isMenuMobile} = useAuth()
+  const {user,setAuth,setUser,setUserId,
+    setNotes,
+    isMenu,setIsMenu,
+    setSetOfNotes,
+    setIsMenuMobile,isMenuMobile,setHistoryState} = useAuth()
   const navigate = useNavigate()
   const {isMobile} = useResolution()
 
@@ -46,13 +50,17 @@ const Header = () => {
 
 
     if(!isMenuMobile){ 
+      const state = { 'mobileMenu': true, name: 'mobileMenu' }
+      setHistoryState(prev => {
+         return {...prev,currentState:state.name,previousState:prev.currentState}
+      })
+      window.history.pushState(state, 'mobileMenu')
       setIsMenuMobile(true)
       document.body.style.overflow = "hidden"   
     }else{
-      setIsMenuMobile(false)
-      document.body.style.overflow = ""  
+      window.history.back()
     }
-
+   
     
   }
 
@@ -65,6 +73,8 @@ const Header = () => {
     setSetOfNotes(true)
     setIsMenu(false)
   }
+
+
 
 
   let current = location.pathname.length <= 1 

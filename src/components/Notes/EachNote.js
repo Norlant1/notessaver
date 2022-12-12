@@ -1,15 +1,23 @@
 import React from 'react'
 import {format} from 'date-fns'
+import useAuth from '../../hooks/useAuth'
 
 const EachNote = ({note,setForm,currentNoteId,setCurrentNoteId,setIsSettings}) => {
 
+ 
+  const {setHistoryState} = useAuth()
   
   const updated = new Date(note.updatedAt).toLocaleString('en-US',{day:'numeric',month:'long',hour:'numeric',minute:'numeric'})
-  
   const setData = () => {
 
-    const state = { 'page_id': 2, 'user_id': 1 }
-    window.history.pushState(state, '')
+    const state = { 'editMode': true, name: 'editMode' }
+    window.history.pushState(state, 'editMode')
+
+    setHistoryState(prev => {
+      return {...prev,currentState:state.name}
+   })
+
+
 
     setIsSettings(prev => {
       return {...prev,isView:true, createState:false, isChange:false}

@@ -9,6 +9,7 @@ import EmailVerification from './auth/EmailVerification'
 import Missing from "./components/Missing";
 import Setting from "./components/Settings/Setting";
 import Account from "./components/Settings/Account";
+import MobileSetOfNotes from "./components/mobile/MobileSetOfNotes";
 
 function App() {
 
@@ -35,6 +36,9 @@ function App() {
            <Route index element={<Setting/>}/>
            <Route path="account" element={<Account/>}/>
         </Route>
+
+        <Route path="setofnotes" element={<MobileSetOfNotes/>} />
+
          {/* Protected Routes */} 
 
          <Route path="*" element={<Missing/>}/> 

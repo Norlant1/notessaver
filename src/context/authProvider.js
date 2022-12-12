@@ -19,7 +19,8 @@ export const AuthProvider  = ({children}) =>{
   const [toggler,setToggler] = useState(false)
   const [firstFetch,setFirstFetch] = useState(true)
   const [isMenuMobile,setIsMenuMobile] = useState(false)
-  
+  const [isMobileSonVisible, setIsMobileSonVisible] = useState(false)
+  const [historyState,setHistoryState] = useState({currentState:'s',previousState:''})
 
   return(
     <AuthContext.Provider value={{
@@ -36,7 +37,9 @@ export const AuthProvider  = ({children}) =>{
       allSetsOfNotes,setAllSetsOfNotes,
       toggler,setToggler,
       firstFetch,setFirstFetch,
-      isMenuMobile,setIsMenuMobile
+      isMenuMobile,setIsMenuMobile,
+      isMobileSonVisible, setIsMobileSonVisible,
+      historyState,setHistoryState
       }} >
        {children}
     </AuthContext.Provider>
