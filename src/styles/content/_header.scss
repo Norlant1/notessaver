@@ -498,5 +498,246 @@
 }
 
 
+.Mobile-SON {
+  height: 800px;
+  width: 100vw;
+  background-color: white;
+  z-index: 1003;
+  display: flex;
+  flex-direction: column;
+
+
+
+
+  .Mobile-SON-toolbar{
+   box-sizing: border-box;
+   height: 90px;
+   padding: 5px;
+   width: 100vw;
+   background-color: #f8f8f8;
+   box-shadow: 0px 1.5px 4px rgba(0, 0, 0, 0.3);
+   position: relative;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   transition: all .3s;
+
+
+   &.active{
+    height: 120px;
+    transition: all .3s;
+   }
+  
+
+
+   .SON-createbutton{
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+    outline: none;
+    border-radius: 50%;
+    cursor: pointer;
+    
+
+
+    .SON-create-image{
+      height: 22px;
+      width: 22px;
+      opacity: 70%;
+     }
+  
+     .create-folder {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      font-size: 0.8em;
+      margin: 5px 0px 0px 0px;
+      color: #474747;
+     }
+   
+   
+  }
+
+
+
+  .SON-create-form{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-grow: 1;
+    padding-left: 40px;
+    padding-right: 80px;
+
+    .input-title-container {
+      position: absolute;
+      left: 5px;
+      top: 20px;
+      display: flex;
+      flex-direction: row;
+      transition: ease-in-out .15s;
+      width: 100%;
+
+      &.a{
+        left: 40px;
+        transition: ease-in-out .15s;
+      }
+      &.b{
+        left: 15px;
+        transition: ease-in-out .15s;
+      }
+   
+
+      .title-text{
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.9em;
+        margin-right: 5px;
+        margin-left: 10px;
+        color: #686868;
+     
+       }
+    
+       .SON-input-title {
+         height: 22px;
+         font-size: 19px;
+         border-radius: 7px;
+         outline: none;
+         font-family: 'Poppins', sans-serif;
+         font-weight: 400;
+         font-size: 0.9em;
+         padding: 2px;
+         border: 1px solid #6b6b6b;
+         padding-left: 10px;
+         width: 100vw;
+         max-width: 400px;
+         margin-right: 43px;
+         
+    
+        
+     
+
+
+       }
+
+       .SON-error{
+        position: absolute;
+        left: 70px;
+        bottom: -35px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 300;
+        font-size: 0.8em;
+        color: rgb(236, 58, 58);
+        margin: 0px;
+       
+       }
+    }
+
+
+
+
+    .save-cancel-container {
+      position: absolute;
+      right: 60px;
+      bottom: 20px;
+
+
+      .cancel-button{
+        height: 28px; 
+        width: 70px;
+        font-family: 'Poppins', sans-serif;
+        border: 1px solid rgb(63, 63, 63);
+        background-color: #ffffff;
+        border-radius: 7px;
+        outline: none;
+        cursor: pointer;
+        color: rgb(20, 20, 20);
+        border-color: rgb(32, 32, 32);
+      }
+   
+      .save-button {
+       height: 28px; 
+       width: 70px;
+       font-family: 'Poppins', sans-serif;
+       border: 1px solid rgb(63, 63, 63);
+       margin-left: 20px;
+       background-color: #1f1f1f;
+       border-radius: 7px;
+       color: white;
+       cursor: pointer;
+        outline: none;
+
+
+      }
+    }
+ 
+   
+  
+   }
+}
+
+
+.SON-list{
+  display: flex;
+  flex-direction: column;
+  height: 710px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  box-sizing: border-box;  
+  transition: ease-in 0.3s;
+  overflow-y: scroll;
+   
+   
+  .Each-SON{
+    height: 65px;
+    border-bottom: 1px solid rgb(177, 177, 177); 
+    position: relative;
+    transition: ease-in-out 1s;
+
+
+
+    .SON-title{
+
+      margin: 10px;
+      overflow: hidden;
+      max-height: 1.4em;
+      
+    }
+
+    .date {
+      font-size: .8em;
+      font-weight: 400;
+      color: #474747;
+      padding-left: 10px;
+
+  
+    }
+
+    .active-SON {
+      color: rgb(74, 238, 101);
+      font-size: 1em;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 300;
+      position: absolute;
+      left: 170px;
+    }
+
+    &:hover {
+      background-color: #e7e7e7;
+    
+      
+    }
+
+  }
+
+
+ }
+
+}
+
 
 

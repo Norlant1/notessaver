@@ -60,7 +60,7 @@ const Setofnotes = () => {
 
     try{
       setIsLoading(true)
-      setCurrentTemp(_id)
+      setCurrentTemp(_id) // storing id of clicked SON, which will be used in reattempting after new token is recevied due to 403 error. --linecode #90
       const currentSON = await fetch('/user','PATCH',{SetOfNotesId:_id})
       value !== 'asd' && setSetOfNotes(false)
       setCurrentSetofNotes(currentSON.activeSetofNotes)
@@ -139,8 +139,8 @@ const Setofnotes = () => {
       const retryCreateSON = async () => {
          try{
   
-          const token = await refreshToken(true) 
-          const created = await fetch('/setofnotes','POST',{id:userId,title},token)
+          const token = await refreshToken(true) // refresh token when error 403,
+          const created = await fetch('/setofnotes','POST',{id:userId,title},token) // manually set the token to fix 403 even after new token is refreshed due to delay in hooks
           updateSetsOfNotesLocally(setAllSetsOfNotes,created)
           setError('')
           setIsCreateMode(false)
@@ -202,7 +202,6 @@ const Setofnotes = () => {
         else {
           return 1
         }
-        return 0
       })
     
 

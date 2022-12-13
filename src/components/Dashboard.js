@@ -74,11 +74,12 @@ const [deleteToggle,setDeleteToggle] = useState(false)
       console.log(SON)
     }catch(error){  
      
+      
       if(error?.response?.status === 403 && firstFetch){
         setIsForbidden(true)
       } // to rerender component
       else if(error?.response?.status === 403 && !firstFetch){
-        setFirstFetch(false)
+        setIsForbidden(false)
       }
       // 403 errors
  
@@ -86,6 +87,8 @@ const [deleteToggle,setDeleteToggle] = useState(false)
       // second condition is 403 error, when it refreshed new token but somehow it still throwing 403 error. one example of this is delay in hook
       
       // meeting of any conditions will set an error to render in page
+
+      // FOR ERROR
       if(error?.response?.status !== 403 && firstFetch || error?.response?.status === 403 && !firstFetch){
        
        console.log('error has been set')
