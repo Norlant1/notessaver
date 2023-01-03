@@ -1,17 +1,16 @@
 import React from 'react'
 import { useState } from 'react'
-import { Link,useLocation,useNavigate } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
-import axios, { setToken } from '../api/axios'
-import { decoded } from '../api/axios'
+import axios from '../api/axios'
 import jwtDecode from 'jwt-decode'
-import { useEffect } from 'react'
+
 
 const Login = () => {
 
 
 
-  const {setAuth,setUser,setUserId,setCurrentSetofNotes} = useAuth()
+  const {setAuth,setUser,setUserId,setCurrentSetofNotes,changedPasswordNotice,setUserRoles} = useAuth()
   const [username,setUsername] = useState('')
   const [password,setPassword] = useState('')
   const navigate = useNavigate()
@@ -51,7 +50,7 @@ const Login = () => {
       setUser(userInfo.userInfo.username) // set user if the page is rerendered
       setUserId(userInfo.userInfo.id)
       setCurrentSetofNotes(userInfo.userInfo.activeSetofNotes)
-
+      setUserRoles(userInfo.userInfo.roles)
 
       setError(null)
       navigate('/dashboard')     
@@ -100,8 +99,9 @@ const Login = () => {
                   className='form-input'
                   
             /> <br/>
-            <Link  className='forgot-password' ><i>Forgot password?</i></Link> <br/>
+            <Link to='/forgotpassword'  className='forgot-password' ><i>Forgot password?</i></Link> <br/>
             {error && <p className='errorLogin'>{error}</p>}
+            {changedPasswordNotice && <p className='registered'>{changedPasswordNotice}</p>}
             <button className={!LoggingIn ? 'login-button':'login-button loggingIn'} >{isLoading[counter]}</button>
             <p className='dont-have'>Don't have an account?<Link to='/register' className='create-account' > Create an account</Link></p>
           </div>

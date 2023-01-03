@@ -4,7 +4,7 @@ import jwt_decode from 'jwt-decode'
  const baseURL = 'https://notes-saver.onrender.com'
 // const baseURL = 'http://localhost:3500'
 
-let token = null
+
 
 const axiosInstance = axios.create({
   baseURL: baseURL,

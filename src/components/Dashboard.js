@@ -5,19 +5,27 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import useAxios from '../hooks/useAxios'
 import useScroll from '../hooks/useScroll'
 import useResolution from '../hooks/useResolution'
+import useError from '../hooks/useError'
 import EachNote from './Notes/EachNote'
 import Setofnotes from './Setofnotes/Setofnotes'
 import { createNoteLocally, deleteNoteLocally, updateNoteLocally } from '../util/setter'
 import MobileMenu from './mobile/MobileMenu'
 import MobileSetOfNotes from './mobile/MobileSetOfNotes'
+import FadeLoader from "react-spinners/FadeLoader";
+
+
+
 
 const Dashboard = () => {
 
 
   const {isMobile} = useResolution()
+  const {errorHandler} = useError()
 
  
  const {fetch,refreshToken} = useAxios()
+
+
  const {error,setError,
         isLoading,setIsLoading,
         isForbidden,setIsForbidden,
@@ -31,7 +39,9 @@ const Dashboard = () => {
         setUserId,setUser,
         setAuth,
         isMobileSonVisible, setIsMobileSonVisible,
-        historyState,setHistoryState}
+        historyState,setHistoryState,
+        dataImage,setDataImage
+      }
          = useAuth()
 
 
@@ -57,6 +67,13 @@ const [deleteToggle,setDeleteToggle] = useState(false)
 
 
 
+
+
+
+ 
+
+
+
   useEffect(()=>{
    
   const fetchData = async() => {
@@ -65,51 +82,16 @@ const [deleteToggle,setDeleteToggle] = useState(false)
  
       const item = await fetch('/notes/active-notes','POST',{activeSetofNotes:currentSetofNotes})
       const SON = await fetch('/setofnotes','GET')
-
-      if(item)setNotes(item)
-      if(SON)setAllSetsOfNotes(SON)
- 
-      
-      console.log(item)
-      console.log(SON)
-    }catch(error){  
+      const image = await fetch('/upload/profileId','POST',{id:userId})
      
       
-      if(error?.response?.status === 403 && firstFetch){
-        setIsForbidden(true)
-      } // to rerender component
-      else if(error?.response?.status === 403 && !firstFetch){
-        setIsForbidden(false)
-      }
-      // 403 errors
- 
-      // first condition is for error that is not 403 in which we want to render error immediately and not request a new token 
-      // second condition is 403 error, when it refreshed new token but somehow it still throwing 403 error. one example of this is delay in hook
+      setNotes(item?.data)
+      setAllSetsOfNotes(SON?.data)
+      setDataImage(image)
       
-      // meeting of any conditions will set an error to render in page
-
-      // FOR ERROR
-      if(error?.response?.status !== 403 && firstFetch || error?.response?.status === 403 && !firstFetch){
-       
-       console.log('error has been set')
-       if(error?.response?.status === 403){
-         setError(error?.response?.statusText)
-                 
-       }
-       else if(error?.response?.status && !error?.message !== 'Network Error'){
-         setError(error?.response?.statusText)
-             
-          // if not 403, which means the token is not the problem and so we do not need to request a new token just to render error.
-       }
-       else if(error?.message){
-          setError(error.message)
-        
-          console.log('this')
-       } 
-       else {
-         setError('error')
-       }
-      }
+    }catch(error){  
+     
+      errorHandler(error)
                           
    }finally{     
        setIsLoading(false)
@@ -120,10 +102,22 @@ const [deleteToggle,setDeleteToggle] = useState(false)
     fetchData() // fetch notes when logged in 
    
    return ()=> {
+       setFirstFetch(true)
        setNotes([])
        setAllSetsOfNotes([])
    }
   },[toggler]) // get notes
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -204,8 +198,8 @@ let datas = null;
  if(isSettings.isChange){
 
      try{   
-      const data = await fetch('/notes','PATCH',{id:currentNoteId, title:currentForm.title, text:currentForm.text})
-      updateNoteLocally(setNotes,data)
+      const response = await fetch('/notes','PATCH',{id:currentNoteId, title:currentForm.title, text:currentForm.text})
+      updateNoteLocally(setNotes,response.data)
 
       setIsSettings(prev => {return {...prev,isChange:false}})  
      }catch(error){
@@ -222,8 +216,8 @@ let datas = null;
     try {
       const token = await refreshToken(true) // set to true to not automatically refetch notes and setofnotes
       console.log('retrying....')
-      const data = await fetch('/notes','PATCH',{id:currentNoteId, title:currentForm.title, text:currentForm.text},token)
-      updateNoteLocally(setNotes,data)
+      const response = await fetch('/notes','PATCH',{id:currentNoteId, title:currentForm.title, text:currentForm.text},token)
+      updateNoteLocally(setNotes,response.data)
       setIsSettings(prev => {return {...prev,isChange:false}}) 
       setUpdateToggle(false)
       console.log('success!')
@@ -247,17 +241,18 @@ let datas = null;
 // RETURNS CREATED NOTE
 // UPDATE THE NOTES STATE
  
+
  const createFile = async () => {
  
    if(isSettings.isChange){ 
     
     try{   
-     const data = await fetch('/notes','POST',{user:userId, title:currentForm.title, text:currentForm.text})    
+     const response = await fetch('/notes','POST',{user:userId, title:currentForm.title, text:currentForm.text})    
      
-     createNoteLocally(setNotes,data)
+     createNoteLocally(setNotes,response?.data)
 
      setIsSettings(prev => {return {...prev,isChange:false}})
-     setCurrentNoteId(data._id)
+     setCurrentNoteId(response.data._id)
      setIsSettings(prev => {return {...prev,createState:false}}) // change the state of form to updateMode
                                                                  // createState:false = update mode                                                               // createState:true = create mode
     }catch(error){
@@ -275,11 +270,11 @@ useEffect(()=> {
     try {
       const token = await refreshToken(true) // set to true to not automatically refetch notes and setofnotes  
       console.log('retrying....')  
-      const data = await fetch('/notes','POST',{user:userId, title:currentForm.title, text:currentForm.text},token)    
+      const response = await fetch('/notes','POST',{user:userId, title:currentForm.title, text:currentForm.text},token)    
      
-     createNoteLocally(setNotes,data)
+     createNoteLocally(setNotes,response.data)
      setIsSettings(prev => {return {...prev,isChange:false}})
-     setCurrentNoteId(data._id)
+     setCurrentNoteId(response.data._id)
      setIsSettings(prev => {return {...prev,createState:false}})
      console.log('success!')
 
@@ -431,11 +426,18 @@ useEffect(()=> {
      {!isMobileSonVisible && <div className='Dashboard' onMouseMove={onMouseMove}  onMouseDown={setActives} onMouseUp={setInactive} onClick={()=>{setIsMenu(false)}}> 
      
      
+    
 
 
-
-     {isLoading  ? 'loading...' : !error &&
-     <>
+     {isLoading  ? <FadeLoader
+        color={'#575757'}
+        loading={isLoading}
+        size={150}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
+      : !error 
+      && <>
       {(isMobile && !isSettings.isView || !isMobile) &&
       <div className={!isMenuMobile ? 'drag-purpose' : 'drag-purpose active'} style={width && !isMobile ?  {width:width} : {}} >
             <article className='toolbar'>

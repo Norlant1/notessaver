@@ -29,11 +29,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    border-style: solid;
-    border-width: 1px;
     border-radius: 8px;
-    border-color: rgb(236, 236, 236);
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 10%), 0 2px 4px rgb(0 0 0 / 10%);
     
     
    .login-header {
@@ -122,6 +119,11 @@
       color: red;
       font-size: 0.8em;
     }
+    .registered{
+      color: rgb(0, 255, 85);
+      font-size: 0.8em;
+      
+    }
   }
  }
 
@@ -143,11 +145,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  border-style: solid;
-  border-width: 1px;
   border-radius: 8px;
-  border-color: rgb(236, 236, 236);
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 10%), 0 2px 4px rgb(0 0 0 / 10%);
   
   
  .register-header {
@@ -710,14 +709,26 @@ body::-webkit-scrollbar {
       width: 70vw;
       margin: 0;
       position: relative;
+ 
+      .dropdown-choice {
+        display: block;
+        height: 35px;
+        padding-left: 90px;
+        padding-top: 10px;
 
 
-      .mobile-each-list{
+        &:hover{
+          background-color: #e9e9e9;
+       }
+      }
+
+      .mobile-each-list-settings, .mobile-each-list{
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
         padding-left: 8vw;
+        user-select: none;
 
         &:hover{
            background-color: #e9e9e9;
@@ -728,6 +739,22 @@ body::-webkit-scrollbar {
           height: 20px;
           opacity: 70%;
           margin-right: 15px;
+        
+        }
+      }
+
+
+      .mobile-each-list-settings{
+
+
+        .dropdown-icons {
+           position: absolute;
+           right: 40px;
+           transform: rotate(90deg);
+           height: 20px;
+           opacity: 90%;
+           transition: ease-in-out 0.3s;
+
         }
       }
 
@@ -776,9 +803,313 @@ body::-webkit-scrollbar {
 
 
 .Main-Settings{
-  height: 700px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+
+
+  .backarrow-img {
+     position: absolute;
+     left: 25px;
+     top: 10px;
+     opacity: 15%;
+     cursor: pointer;
+     height: 40px;
+    transform: rotate(180deg);
+
+     &:hover {
+      opacity: 25%;
+     }
+  }
+
+
+
+  .settings-list {
+    height: 700px;
+     width: 300px;
+     padding-top: 80px;  
+     border-right: 1px solid #d6d6d6; 
+     display: flex;
+     flex-direction: column;
+
+
+     .each-list {
+      cursor: pointer;
+      color: #636060;
+      font-size: 0.9em;
+      text-decoration: none;
+      margin-bottom: 12px;
+      padding-left: 30px;
+      transition: ease-in 0.2s;
+      
+      &.active {
+        opacity: 50%;
+      }
+
+     }
+  }
+
+
+  .setting-content{
+     flex-grow: 1;
+     height: 700px;
+
+
+     .setting-profile-container{
+      
+      .profile-pic-container{
+        height:120px;
+        
+        img{
+          border: 1px solid #3f3e3e2d;
+          border-radius: 200px;
+          height:100px;
+          width:100px;
+        }
+      }
+
+     }
+
+
+  }
 }
  
 
+.Main-forgot-Password {
+  padding-top: 20vh;
+  height: 700px; 
+  background-color: #f3f3f3;
+
+  
+  .loading {
+    background-color: #ffffff93;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    
+  }
+
+  .forgot-password-container{
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+    max-width: 30em;
+    min-width: 15em;
+    align-items: center;
+    justify-content: flex-start;  
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 10%), 0 2px 4px rgb(0 0 0 / 10%);
+    margin: auto;
+    
+    background-color:  rgb(245, 245, 245);
+
+
+
+
+    .first-container{
+     display: flex;
+     flex-direction: row;
+     justify-content: flex-start;
+     width: 100%;
+     border-bottom: solid 1px #ccc;
+
+     
+      h3{
+        color: #37373a;
+        padding-left: 20px;
+        font-size: 1.3em;
+        font-family: 'Source Sans Pro', sans-serif;
+        
+      }
+    }
+
+
+    .second-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      width: 100%;
+      
+
+      .search-account {
+         color: #2a2a2b;
+         padding-left: 15px;
+      }
+    }
+
+    .resetpassword-body{
+     display: flex;
+     flex-direction: row;
+     align-items: flex-start;
+     width: 100%;
+    
+
+
+      .choose-method{
+        margin:none;
+        padding: 0px;
+        width: 100%;
+        border: 0px;
+        position: relative;
+        height: 170px;
+  
+  
+        .recovery-option{
+          accent-color: rgb(32, 32, 32);
+          height:20px;
+          width: 20px;
+          position: absolute;
+          left: 10px;
+        }
+  
+        .email-recovery{
+           
+          &:hover {
+            background-color: #e2dfdf;
+         }
+          p{
+            margin: 0px;
+            margin-left: 45px;
+            font-weight: 300;
+            font-size: 0.9em;
+            color: #2b2b2b;
+         }
+        }
+        .SMS-recovery {
+          margin-top: 15px;
+          &:hover {
+            background-color: #e2dfdf;
+          }
+          p{
+            margin: 0px;
+             margin-left: 45px;
+             font-weight: 300;
+             font-size: 0.9em;
+             color: #2b2b2b;
+         }
+        }
+      }
+  
+      .user-preview{
+        height: 170px;
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-top: 25px;
+        
+        p{
+           font-weight: 400;
+        }
+
+      }
+    }
+
+   
+    
+  }
+
+  .input-container{
+     display: flex;
+     flex-direction: row;
+     width: 100%;
+
+
+    .forgot-password-input { 
+      border-radius: 6px;
+      height: 40px;
+      flex-grow: 1;
+      outline: none;
+      border: 1px solid #ccd0d5;
+      margin: 0px 15px 0px 15px;
+      color: #262627;
+      font-size: 1em;
+      padding-left: 10px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 300;
+      
+     
+    }
+  }
+
+  .buttons-container {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 30px;
+
+
+    .cancel-button {
+      height: 40px;
+       width: 85px;
+      font-family: "Poppins",sans-serif;
+      border: 1px solid #3f3f3f;
+      background-color: #fff;
+      border-radius: 7px;
+      outline: none;
+      cursor: pointer;
+      color: #141414;
+      border-color: #202020;
+      font-size: 0.9em;
+    }
+
+    .search-button {
+       margin-left: 15px;
+       height: 40px;
+       width: 85px;
+       font-family: "Poppins",sans-serif;
+       border: 1px solid #3f3f3f;
+       margin-left: 20px;
+       background-color: #1f1f1f;
+       border-radius: 7px;
+       color: #fff;
+       cursor: pointer;
+       outline: none;
+       font-size: 0.9em;
+    }
+  }
+
+  .code-container{
+
+    outline: none;
+    height: 35px;
+    font-size: 1.1em;
+    padding-left: 15px;
+    border-radius: 7px;
+    border: 1px solid #ccd0d5;
+    color: #262627;
+    width: 220px;
+    margin-left: 25px;
+
+    &::placeholder{
+      font-family: 'Poppins', sans-serif;
+      color: #8c8c8f;
+      font-weight: 300;
+      font-size: 0.9em;     
+    }
+    
+  } 
+}
+
+
+.main-admin{
+   height: 800px;
+}
 
 

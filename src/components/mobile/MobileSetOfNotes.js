@@ -5,7 +5,8 @@ import useAxios from '../../hooks/useAxios'
 import EachSet from '../Setofnotes/EachSet'
 import useAuth from '../../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
-import { updateSetsOfNotesLocally } from '../../util/setter'
+import { updateSetsOfNotesLocally,deleteSetOfNotesLocally } from '../../util/setter'
+import useError from '../../hooks/useError'
 
 const MobileSetOfNotes = () => {
 
@@ -16,6 +17,10 @@ const MobileSetOfNotes = () => {
    const [temp,setTemp] = useState('')
    const [updateSONToggle,setUpdateSONToggle] = useState(false)
    const [createSONToggle,setCreateSONToggle] = useState(false)
+   const [deleteSONToggle,setDeleteSONToggle] = useState(false)
+   const [deletedTemp,setDeletedTemp] = useState('')
+   
+
 
    const navigate = useNavigate()
    
@@ -32,7 +37,7 @@ const MobileSetOfNotes = () => {
    
    
    const {fetch,refreshToken} = useAxios()
-
+   const {errorHandler} = useError()
    
 
    
@@ -41,55 +46,17 @@ const MobileSetOfNotes = () => {
     const getSetOfNotes = async () => { 
      try{
       
-        const SON = await fetch('/setofnotes','GET')
-        setAllSetsOfNotes(SON)
+        const response = await fetch('/setofnotes','GET')
+        setAllSetsOfNotes(response.data)
       
 
      }catch(error){
-       
-      if(error?.response?.status === 403 && firstFetch){
-        setIsForbidden(true)
-      } // to rerender component
-      else if(error?.response?.status === 403 && !firstFetch){
-        setIsForbidden(false)
-      }
-      // 403 errors
- 
-      // first condition is for error that is not 403 in which we want to render error immediately and not request a new token 
-      // second condition is 403 error, when it refreshed new token but somehow it still throwing 403 error. one example of this is delay in hook
-      
-      // meeting of any conditions will set an error to render in page
-      if(error?.response?.status !== 403 && firstFetch || error?.response?.status === 403 && !firstFetch){
-       
-       console.log('error has been set')
-       if(error?.response?.status === 403){
-         setError(error?.response?.statusText)
-                 
-       }
-       else if(error?.response?.status && !error?.message !== 'Network Error'){
-         setError(error?.response?.statusText)
-             
-          // if not 403, which means the token is not the problem and so we do not need to request a new token just to render error.
-       }
-       else if(error?.message){
-          setError(error.message)
-        
-          console.log('this')
-       } 
-       else {
-         setError('error')
-       }
-      }
+      errorHandler(error)
      }
-
      finally{
       setIsLoading(false)
      }
-  
-
     }
-    
-
     getSetOfNotes()
 
    },[toggler])
@@ -119,8 +86,8 @@ const MobileSetOfNotes = () => {
     
     try{
       setTemp(_id)
-      const currentSON = await fetch('/user','PATCH',{SetOfNotesId:_id})
-      setCurrentSetofNotes(currentSON.activeSetofNotes) 
+      const response = await fetch('/user','PATCH',{SetOfNotesId:_id})
+      setCurrentSetofNotes(response.data.activeSetofNotes) 
       navigate('/dashboard')
       
     }
@@ -141,8 +108,8 @@ const MobileSetOfNotes = () => {
          const token = await refreshToken(true) // the parameter to true to not automatically rerender notes and setofnotes
           
          
-          const currentSON = await fetch('/user','PATCH',{SetOfNotesId:temp},token)        
-          setCurrentSetofNotes(currentSON.activeSetofNotes)  
+          const response = await fetch('/user','PATCH',{SetOfNotesId:temp},token)        
+          setCurrentSetofNotes(response.data.activeSetofNotes)  
           navigate('/dashboard')
           console.log('2nd attemp success')
          
@@ -183,8 +150,8 @@ const MobileSetOfNotes = () => {
   const createSOT = async() => {
 
     try{
-      const created = await fetch('/setofnotes','POST',{id:userId,title})
-      updateSetsOfNotesLocally(setAllSetsOfNotes,created)
+      const response = await fetch('/setofnotes','POST',{id:userId,title})
+      updateSetsOfNotesLocally(setAllSetsOfNotes,response.data)
       setSonError('')
       setIsCreateMode(false)
       setTitle('')
@@ -211,8 +178,8 @@ const MobileSetOfNotes = () => {
        try{
 
         const token = await refreshToken(true) // refresh token when error 403,
-        const created = await fetch('/setofnotes','POST',{id:userId,title},token) // manually set the token to fix 403 even after new token is refreshed due to delay in hooks
-        updateSetsOfNotesLocally(setAllSetsOfNotes,created)
+        const response = await fetch('/setofnotes','POST',{id:userId,title},token) // manually set the token to fix 403 even after new token is refreshed due to delay in hooks
+        updateSetsOfNotesLocally(setAllSetsOfNotes,response.data)
         setSonError('')
         setTitle('')
         setIsCreateMode(false)
@@ -235,7 +202,58 @@ const MobileSetOfNotes = () => {
 
     if(createSONToggle) retryCreateSON()
      
+
+    return ()=> {
+      setFirstFetch(true)
+    }
    },[createSONToggle])
+
+
+
+
+
+   const deleteSON = async (id) => {
+        
+    try{
+       
+       const response = await fetch('/setofnotes','DELETE',id)
+       deleteSetOfNotesLocally(setAllSetsOfNotes,response.data)
+
+    }catch(error){
+     
+     console.log(error)
+     setDeletedTemp(id)
+    setDeleteSONToggle(true)
+    }
+ }
+
+
+ useEffect(()=> {
+  const retryDeleteSON = async () => {
+   try{
+     
+     const token = await refreshToken(true)
+     const response = await fetch('/setofnotes','DELETE',deletedTemp,token)
+     deleteSetOfNotesLocally(setAllSetsOfNotes,response.data)
+   }
+   catch(error){
+     console.log(error)
+   }
+   finally {
+     setDeletedTemp('')
+     setDeleteSONToggle(false)
+   }
+  }
+
+  if(deleteSONToggle) retryDeleteSON()
+   
+ },[deleteSONToggle])
+
+
+
+
+
+
 
 
 
@@ -267,7 +285,7 @@ const MobileSetOfNotes = () => {
 
      datas = datas.map((item,index)=>{
 
-     return <EachSet item={item} key={index} changeSON={changeSON}/>
+     return <EachSet item={item} key={index} changeSON={changeSON} deleteSON={deleteSON}/>
  
     })
   }

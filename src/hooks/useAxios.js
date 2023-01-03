@@ -14,7 +14,7 @@ const useAxios = () => {
           setUser,setUserId,
           setCurrentSetofNotes,
           currentSetofNotes,
-          setToggler,setFirstFetch
+          setToggler,setFirstFetch,setUserRoles,setDataImage
         } = useAuth() 
 
 
@@ -67,12 +67,12 @@ const useAxios = () => {
         
 
 
-        return response?.data    // return the data from response
+        return response  // return the data from response
     
 
     }
 
-    const refreshToken = async (value)=> {
+    const refreshToken = async (value,firstState,secondState)=> {
         
       try{
 
@@ -83,7 +83,7 @@ const useAxios = () => {
         const userInfo = jwtDecode(response?.data?.accessToken)
         setUser(userInfo.userInfo.username) // set user if the page is rerendered
         setUserId(userInfo.userInfo.id)
-
+        setUserRoles(userInfo.userInfo.roles)
 
         setCurrentSetofNotes(currentSetofNotes ? currentSetofNotes :userInfo.userInfo.activeSetofNotes) 
         // if rerendered, the currentSetofNotes will be empty and so we need to get the value from the decoded token
@@ -116,12 +116,21 @@ const useAxios = () => {
         setUserId('')
         setNotes([])
         setIsMenu(false)
+        setDataImage('')
+        setUserRoles([])
+        
+    
 
 
 
         console.log(error)
           navigate('/login',{ state: { from: location }, replace: true })
          //send back to login page when token is refresh expired
+      }
+      finally {
+         
+        firstState && firstState(prev => !prev)
+        secondState && secondState(prev => !prev)
       }
     }
 

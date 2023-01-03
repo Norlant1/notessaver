@@ -6,6 +6,7 @@ const AuthContext = createContext({})
 
 export const AuthProvider  = ({children}) =>{
   const [user,setUser] = useState('')
+  const [userRoles,setUserRoles] = useState([])
   const [notes,setNotes] = useState([])
   const [currentSetofNotes,setCurrentSetofNotes] = useState('')
   const [error,setError] = useState(null)
@@ -21,6 +22,8 @@ export const AuthProvider  = ({children}) =>{
   const [isMenuMobile,setIsMenuMobile] = useState(false)
   const [isMobileSonVisible, setIsMobileSonVisible] = useState(false)
   const [historyState,setHistoryState] = useState({currentState:'s',previousState:''})
+  const [changedPasswordNotice,setChangedPasswordNotice] = useState('')
+  const [dataImage,setDataImage] = useState('')
 
   return(
     <AuthContext.Provider value={{
@@ -39,7 +42,10 @@ export const AuthProvider  = ({children}) =>{
       firstFetch,setFirstFetch,
       isMenuMobile,setIsMenuMobile,
       isMobileSonVisible, setIsMobileSonVisible,
-      historyState,setHistoryState
+      historyState,setHistoryState,
+      changedPasswordNotice,setChangedPasswordNotice,
+      dataImage,setDataImage,
+      userRoles,setUserRoles
       }} >
        {children}
     </AuthContext.Provider>

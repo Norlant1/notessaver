@@ -105,7 +105,7 @@ console.log(counter)
        <form className='register-form' onSubmit={handleRegister}>
           <div className='register-header'><span>Notes Saver</span></div>        
           <div className='first-register-content'>
-            <label className='input-label' htmlFor="email">Email or Phone number</label><br/>
+            <label className='input-label' htmlFor="email">Email</label><br/>
             <input type='text'
                   name="email"
                   value={email}

@@ -11,6 +11,7 @@ export const updateNoteLocally = (setNotes,data) => {
 
 export const createNoteLocally = (setNotes,data) => {
   setNotes(allNotes => {
+    console.log(allNotes)
     return [...allNotes,data]
    })
 }
@@ -29,4 +30,14 @@ export const updateSetsOfNotesLocally = (setAllSetsOfNotes,created) => {
   setAllSetsOfNotes(setsOfNotes => {
     return [...setsOfNotes,created]
   })
+}
+
+
+export const deleteSetOfNotesLocally = (setAllSetsOfNotes,deletedSetOfNotesId) => {
+   setAllSetsOfNotes(setsOfNotes => {
+     
+    return setsOfNotes.filter(eachSet => {         
+      return eachSet._id !== deletedSetOfNotesId
+     }) 
+   })
 }

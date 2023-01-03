@@ -11,6 +11,30 @@
   position: fixed;
   width: 100vw;
   z-index: 1005;
+  
+
+  .admin-box{
+     position: absolute;
+     top: 17px;
+     right: 45px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     cursor: pointer;
+     
+
+     .admin-image {
+       height: 20px;
+       margin-bottom: 2px;
+     }
+
+     .admin-text {
+       font-size: 0.5em;
+       font-weight: 300;
+       font-family: 'Poppins', sans-serif;
+     }
+  }
 
 
  .public-header-left{
@@ -456,6 +480,7 @@
     height: 65px;
     border-bottom: 1px solid rgb(177, 177, 177); 
     position: relative;
+    user-select: none;
 
 
 
@@ -491,6 +516,45 @@
       
     }
 
+    .delete-text {
+      position: absolute;
+      right: 70px;
+      bottom: -5px;
+      z-index: 3000;
+      font-size: 0.75em;
+      text-decoration: underline;
+      cursor: pointer;
+      color: #444444;
+      
+      &:hover{
+        color: #1f1f1f;
+      }
+
+      &:active{
+         opacity: 70%;
+      }
+     
+   }
+
+    .edit-text {
+      position: absolute;
+      right: 150px;
+      bottom: -5px;
+      z-index: 3000;
+      font-size: 0.75em;
+      text-decoration: underline;
+      cursor: pointer;
+      color: #444444;
+
+      &:hover{
+        color: #1f1f1f;
+      }
+
+      &:active{
+        opacity: 70%;
+     }
+    }
+
   }
 
 
@@ -524,7 +588,7 @@
 
 
    &.active{
-    height: 120px;
+    height: 135px;
     transition: all .3s;
    }
   
@@ -626,7 +690,7 @@
        .SON-error{
         position: absolute;
         left: 70px;
-        bottom: -35px;
+        bottom: -25px;
         font-family: 'Poppins', sans-serif;
         font-weight: 300;
         font-size: 0.8em;
@@ -697,6 +761,15 @@
     border-bottom: 1px solid rgb(177, 177, 177); 
     position: relative;
     transition: ease-in-out 1s;
+    user-select: none;
+
+
+    
+    &:hover {
+      background-color: #e7e7e7;
+    
+      
+    }
 
 
 
@@ -726,11 +799,48 @@
       left: 170px;
     }
 
-    &:hover {
-      background-color: #e7e7e7;
     
+    .delete-text {
+      position: absolute;
+      right: 70px;
+      bottom: -5px;
+      z-index: 3000;
+      font-size: 0.75em;
+      text-decoration: underline;
+      cursor: pointer;
+      color: #444444;
       
+      &:hover{
+        color: #1f1f1f;
+      }
+
+      &:active{
+         opacity: 70%;
+      }
+     
+   }
+
+    .edit-text {
+      position: absolute;
+      right: 150px;
+      bottom: -5px;
+      z-index: 3000;
+      font-size: 0.75em;
+      text-decoration: underline;
+      cursor: pointer;
+      color: #444444;
+
+      &:hover{
+        color: #1f1f1f;
+      }
+
+      &:active{
+        opacity: 70%;
+     }
     }
+
+
+   
 
   }
 

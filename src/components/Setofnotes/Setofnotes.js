@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import useAuth from '../../hooks/useAuth'
 import { useEffect } from 'react'
 import useAxios from '../../hooks/useAxios'
-import { updateSetsOfNotesLocally } from '../../util/setter'
+import { updateSetsOfNotesLocally,deleteSetOfNotesLocally } from '../../util/setter'
 import EachSet from './EachSet'
 import {animcaller,ClassNameMaker,startAnim,finishAnim} from '../../util/animation'
 
@@ -15,7 +15,9 @@ const Setofnotes = () => {
   const [title,setTitle] = useState('')
   const [createSONToggle,setCreateSONToggle] = useState(false)
   const [updateSONToggle,setUpdateSONToggle] = useState(false)
+  const [deleteSONToggle,setDeleteSONToggle] = useState(false)
   const [currentTemp,setCurrentTemp] = useState('')
+  const [deletedTemp,setDeletedTemp] = useState('')
   const [isCreateMode,setIsCreateMode] = useState(false)
   const [error,setError] = useState('')
   
@@ -23,7 +25,7 @@ const Setofnotes = () => {
   
   const {setSetOfNotes,userId,
     allSetsOfNotes,setAllSetsOfNotes,setCurrentSetofNotes,
-    currentSetofNotes,setToggler,setIsLoading,auth} = useAuth()
+    currentSetofNotes,setToggler,setIsLoading,auth,setFirstFetch} = useAuth()
 
  
    const frames = ClassNameMaker('input-title-container',3)
@@ -61,9 +63,9 @@ const Setofnotes = () => {
     try{
       setIsLoading(true)
       setCurrentTemp(_id) // storing id of clicked SON, which will be used in reattempting after new token is recevied due to 403 error. --linecode #90
-      const currentSON = await fetch('/user','PATCH',{SetOfNotesId:_id})
+      const response = await fetch('/user','PATCH',{SetOfNotesId:_id})
       value !== 'asd' && setSetOfNotes(false)
-      setCurrentSetofNotes(currentSON.activeSetofNotes)
+      setCurrentSetofNotes(response.data.activeSetofNotes)
       setToggler(prev => !prev) 
       setIsLoading(false)
       
@@ -87,9 +89,9 @@ const Setofnotes = () => {
          const token = await refreshToken(true) // the parameter to true to not automatically rerender notes and setofnotes
           
          
-          const currentSON = await fetch('/user','PATCH',{SetOfNotesId:currentTemp},token) 
+          const response = await fetch('/user','PATCH',{SetOfNotesId:currentTemp},token) 
           setSetOfNotes(false)  
-          setCurrentSetofNotes(currentSON.activeSetofNotes)  
+          setCurrentSetofNotes(response.data.activeSetofNotes)  
           setToggler(prev => !prev)  
           console.log('2nd attemp success')
          
@@ -110,14 +112,14 @@ const Setofnotes = () => {
 
 
     const createSOT = async() => {
-
+  
       try{
-        const created = await fetch('/setofnotes','POST',{id:userId,title})
-        updateSetsOfNotesLocally(setAllSetsOfNotes,created)
+        const response = await fetch('/setofnotes','POST',{id:userId,title})
+        updateSetsOfNotesLocally(setAllSetsOfNotes,response.data)
         setError('')
         setIsCreateMode(false)
         setTitle('')
-        changeSON({_id:created._id},'asd')
+        changeSON({_id:response.data._id},'asd')
       }catch(error){
        
        if(error?.response?.status === 409){
@@ -127,6 +129,7 @@ const Setofnotes = () => {
         setError(error?.response?.data.message)
         animStart()
        }
+       
        
        setCreateSONToggle(true)
       }
@@ -140,14 +143,15 @@ const Setofnotes = () => {
          try{
   
           const token = await refreshToken(true) // refresh token when error 403,
-          const created = await fetch('/setofnotes','POST',{id:userId,title},token) // manually set the token to fix 403 even after new token is refreshed due to delay in hooks
-          updateSetsOfNotesLocally(setAllSetsOfNotes,created)
+          const response = await fetch('/setofnotes','POST',{id:userId,title},token) // manually set the token to fix 403 even after new token is refreshed due to delay in hooks
+          updateSetsOfNotesLocally(setAllSetsOfNotes,response.data)
           setError('')
           setIsCreateMode(false)
           setTitle('')
-          changeSON({_id:created._id},'asd')
+          changeSON({_id:response.data._id},'asd')
          }catch(error){
              
+          setFirstFetch(true)
           if(error?.response?.status === 409){
             setError(error?.response?.data.message)
           }
@@ -166,6 +170,54 @@ const Setofnotes = () => {
       if(createSONToggle) retryCreateSON()
        
      },[createSONToggle])
+
+
+
+    const deleteSON = async (id) => {
+        
+       try{
+          
+          const response = await fetch('/setofnotes','DELETE',id)
+          deleteSetOfNotesLocally(setAllSetsOfNotes,response.data)
+
+       }catch(error){
+        
+        console.log(error)
+        setDeletedTemp(id)
+       setDeleteSONToggle(true)
+       }
+    }
+
+
+    useEffect(()=> {
+     const retryDeleteSON = async () => {
+      try{
+        
+        const token = await refreshToken(true)
+        const response = await fetch('/setofnotes','DELETE',deletedTemp,token)
+        deleteSetOfNotesLocally(setAllSetsOfNotes,response.data)
+      }
+      catch(error){
+        console.log(error)
+      }
+      finally {
+        setDeletedTemp('')
+        setDeleteSONToggle(false)
+      }
+     }
+
+     if(deleteSONToggle) retryDeleteSON()
+      
+    },[deleteSONToggle])
+
+
+
+
+
+
+
+
+
 
 
 
@@ -209,7 +261,7 @@ const Setofnotes = () => {
 
      datas = datas.map((item,index)=>{
 
-     return <EachSet item={item} key={index} changeSON={changeSON}/>
+     return <EachSet item={item} key={index} changeSON={changeSON} deleteSON={deleteSON}/>
  
     })
   }
