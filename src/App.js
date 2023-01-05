@@ -16,7 +16,9 @@ import Profile from "./components/Settings/Profile";
 import Security from "./components/Settings/Security";
 import Appearance from "./components/Settings/Appearance";
 import FPTypeCode from "./auth/FPTypeCode";
-
+import APIDocumentation from "./components/admin/APIDocumentation"
+import TokenHandlerDocumentation from "./components/admin/TokenHandlerDocumentation"
+import APIManualRequestDocumentation from "./components/admin/APIManualRequestDocumentation"
 
 
 function App() {
@@ -31,7 +33,11 @@ function App() {
         <Route index element={<Public/>} />
         <Route path="login" element={<Login/>} />
         <Route path="register" element={<Register/>} />
-        <Route path="admin" element={<Admin/>}/>
+        <Route path="admin" element={<Admin/>}>
+           <Route path="API-documentation" element={<APIDocumentation/>}/>
+           <Route path="token-Handler" element={<TokenHandlerDocumentation/>}/>
+           <Route path="API-manual-request" element={<APIManualRequestDocumentation/>}/>
+        </Route>
         <Route path="forgotpassword" >
             <Route index element={<ForgotPassword/>}/>
            <Route path="recovery/code" element={<FPTypeCode/>}/> 
@@ -47,7 +53,7 @@ function App() {
            <Route index element={<Dashboard/>} />           
         </Route>
         <Route path="settings" element={<Setting/>}>
-           <Route path="profile" index element={<Profile/>}/>
+           <Route path="profile" element={<Profile/>}/>
            <Route path="security" element={<Security/>}/>
            <Route path="appearance" element={<Appearance/>}/>
         </Route>

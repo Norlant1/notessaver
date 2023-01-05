@@ -137,7 +137,7 @@ const Header = () => {
   return (
   
     <header className="public-header" >
-         {userRoles.indexOf('admin') !== -1 && <div className='admin-box' style={!isMobile ? {}:{right:'110px'}} onClick={adminRoute}>
+         {userRoles.indexOf('admin') !== -1 && location.pathname === '/dashboard' && <div className='admin-box' style={!isMobile ? {}:{right:'110px'}} onClick={adminRoute}>
            <img className='admin-image' src={require('../images/admins.png')} />
            <label htmlFor="" className='admin-text'>admin</label>
          </div>}

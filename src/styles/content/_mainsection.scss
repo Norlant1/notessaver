@@ -1110,6 +1110,82 @@ body::-webkit-scrollbar {
 
 .main-admin{
    height: 800px;
+
+
+   .admin-content-container{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+  
+  
+    .backarrow-img {
+       position: absolute;
+       left: 25px;
+       top: 10px;
+       opacity: 15%;
+       cursor: pointer;
+       height: 40px;
+      transform: rotate(180deg);
+  
+       &:hover {
+        opacity: 25%;
+       }
+    }
+  
+  
+  
+    .admin-list {
+      height: 700px;
+       width: 300px;
+       padding-top: 80px;  
+       border-right: 1px solid #d6d6d6; 
+       display: flex;
+       flex-direction: column;
+  
+  
+       .each-list {
+        cursor: pointer;
+        color: #636060;
+        font-size: 0.9em;
+        text-decoration: none;
+        margin-bottom: 12px;
+        padding-left: 30px;
+        transition: ease-in 0.2s;
+        
+        &.active {
+          opacity: 50%;
+        }
+          
+       }
+    }
+  
+  
+    .admin-left-content{
+       flex-grow: 1;
+       height: 700px;
+  
+  
+       .setting-profile-container{
+        
+        .profile-pic-container{
+          height:120px;
+          
+          img{
+            border: 1px solid #3f3e3e2d;
+            border-radius: 200px;
+            height:100px;
+            width:100px;
+          }
+        }
+  
+       }
+  
+  
+    }
+  }
 }
+
+
+
 
 

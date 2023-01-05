@@ -11,7 +11,7 @@ import Setofnotes from './Setofnotes/Setofnotes'
 import { createNoteLocally, deleteNoteLocally, updateNoteLocally } from '../util/setter'
 import MobileMenu from './mobile/MobileMenu'
 import MobileSetOfNotes from './mobile/MobileSetOfNotes'
-import FadeLoader from "react-spinners/FadeLoader";
+import MoonLoader from "react-spinners/MoonLoader";
 
 
 
@@ -426,15 +426,14 @@ useEffect(()=> {
      {!isMobileSonVisible && <div className='Dashboard' onMouseMove={onMouseMove}  onMouseDown={setActives} onMouseUp={setInactive} onClick={()=>{setIsMenu(false)}}> 
      
      
-    
-
-
-     {isLoading  ? <FadeLoader
-        color={'#575757'}
+  
+     {isLoading  ? <MoonLoader
+        color={'#1f1f1f'}
         loading={isLoading}
-        size={150}
+        size={30}
         aria-label="Loading Spinner"
         data-testid="loader"
+        cssOverride={{position:'absolute',left:'50%',top:'50%'}}
       />
       : !error 
       && <>
