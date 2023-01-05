@@ -171,7 +171,7 @@ const Header = () => {
                  <nav className='user-setting'>
                     <div className='user-setting-container1' onClick={userSetting}><img className='setting' src={require('../images/menuButtons/setting.png')}/><ul className='user-setting-1'>Settings<i style={{fontSize:'0.8em'}}>&#40;In development&#41;</i></ul></div>
                     <div className='user-setting-container2' onClick={SetofNotes}><img className='setofnotes' src={require('../images/menuButtons/setofnotes.png')}/><ul className='user-setting-2'>Set of Notes</ul></div>
-                    <div className='user-setting-container3'><img className='feedback-button' src={require('../images/menuButtons/feedback.png')}/><ul className='user-setting-3'>Feedback</ul></div>
+                    <div className='user-setting-container3'><img className='feedback-button' src={require('../images/menuButtons/feedback.png')}/><ul className='user-setting-3'>Feedback<i style={{fontSize:'0.8em'}}>  &#40;In development&#41;</i></ul></div>
                     <div className='user-setting-container4' onClick={logout}><img className='logout-button' src={require('../images/menuButtons/logout.png')}/><ul className='user-setting-3'>Sign out</ul></div>
                  
                  </nav>
