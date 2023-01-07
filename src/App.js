@@ -19,7 +19,7 @@ import FPTypeCode from "./auth/FPTypeCode";
 import APIDocumentation from "./components/admin/APIDocumentation"
 import TokenHandlerDocumentation from "./components/admin/TokenHandlerDocumentation"
 import APIManualRequestDocumentation from "./components/admin/APIManualRequestDocumentation"
-
+import Feedback from "./components/Feedback";
 
 function App() {
 
@@ -57,7 +57,7 @@ function App() {
            <Route path="security" element={<Security/>}/>
            <Route path="appearance" element={<Appearance/>}/>
         </Route>
-
+        <Route path="feedback" element={<Feedback/>} />
         <Route path="setofnotes" element={<MobileSetOfNotes/>} />
 
          {/* Protected Routes */} 
