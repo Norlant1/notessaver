@@ -12,7 +12,7 @@ import { createNoteLocally, deleteNoteLocally, updateNoteLocally } from '../util
 import MobileMenu from './mobile/MobileMenu'
 import MobileSetOfNotes from './mobile/MobileSetOfNotes'
 import MoonLoader from "react-spinners/MoonLoader";
-
+import Messages from './messages/Messages'
 
 
 
@@ -36,13 +36,14 @@ const Dashboard = () => {
         toggler,
         firstFetch,setFirstFetch,
         isMenuMobile,setIsMenuMobile,
-        setUserId,setUser,
-        setAuth,
         isMobileSonVisible, setIsMobileSonVisible,
         historyState,setHistoryState,
-        dataImage,setDataImage
+        dataImage,setDataImage,
+        isMessage,setIsMessage
       }
          = useAuth()
+
+
 
 
 const [updateToggle,setUpdateToggle] = useState(false)
@@ -88,6 +89,7 @@ const [deleteToggle,setDeleteToggle] = useState(false)
       setNotes(item?.data)
       setAllSetsOfNotes(SON?.data)
       setDataImage(image)
+      console.log(image)
       
     }catch(error){  
      
@@ -138,6 +140,7 @@ const [deleteToggle,setDeleteToggle] = useState(false)
 
 let datas = null;
  if(notes?.length){
+
 
   datas = notes
     if(noteSearch.length) {
@@ -420,7 +423,7 @@ useEffect(()=> {
       {/* only show error when fetch is failed for the second time */}
      {error && error}
      {isSetOfNotes && !isMobile && <div className='main-setofnotes-container'><Setofnotes/></div>}
-     
+     {isMessage && !isMobile && <div className='main-messages-container'><Messages/></div>}
      
      <MobileMenu/>
      {!isMobileSonVisible && <div className='Dashboard' onMouseMove={onMouseMove}  onMouseDown={setActives} onMouseUp={setInactive} onClick={()=>{setIsMenu(false)}}> 

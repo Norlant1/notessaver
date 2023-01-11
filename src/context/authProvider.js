@@ -9,6 +9,7 @@ export const AuthProvider  = ({children}) =>{
   const [userRoles,setUserRoles] = useState([])
   const [notes,setNotes] = useState([])
   const [currentSetofNotes,setCurrentSetofNotes] = useState('')
+
   const [error,setError] = useState(null)
   const [isForbidden,setIsForbidden] = useState(false)
   const [isLoading,setIsLoading] = useState(true)
@@ -24,6 +25,8 @@ export const AuthProvider  = ({children}) =>{
   const [historyState,setHistoryState] = useState({currentState:'s',previousState:''})
   const [changedPasswordNotice,setChangedPasswordNotice] = useState('')
   const [dataImage,setDataImage] = useState('')
+  const [isMessage,setIsMessage] = useState(false) 
+  const [foundUsers,setFoundUsers] = useState([])
 
   return(
     <AuthContext.Provider value={{
@@ -45,7 +48,9 @@ export const AuthProvider  = ({children}) =>{
       historyState,setHistoryState,
       changedPasswordNotice,setChangedPasswordNotice,
       dataImage,setDataImage,
-      userRoles,setUserRoles
+      userRoles,setUserRoles,
+      isMessage,setIsMessage,
+      foundUsers,setFoundUsers
       }} >
        {children}
     </AuthContext.Provider>

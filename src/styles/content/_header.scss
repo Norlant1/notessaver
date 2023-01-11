@@ -14,14 +14,13 @@
   
 
   .admin-box{
-     position: absolute;
-     top: 17px;
-     right: 45px;
      display: flex;
      flex-direction: column;
      align-items: center;
      justify-content: center;
      cursor: pointer;
+     margin-left: 40px;
+     line-height: 3px;
      
 
      .admin-image {
@@ -66,7 +65,7 @@
   .auth-link {
     display: flex;
     flex-direction: row;
-    margin-right: 15%;
+    margin-right: 5%;
     align-items:  center;
     position: relative;
     user-select: none;
@@ -88,20 +87,35 @@
 
    }
 
+   .loadedimage{
+     margin-left: 10px;
+     border-radius: 50px;
+     height: 32px;
+     width: 32px;
+     cursor: pointer;
+     border: 2px solid #262626;
+     
+
+     &:hover{
+       
+
+     }
+   }
+
    .menu-button{
 
     background: none;
     width: 60px;
     border: none;
     cursor: pointer;
-    margin-left: 20px;
     
     &:active{
       opacity: 70%;
     } 
 
   .profile-menu{
-    height: 28px;   
+    margin-top: 4px;
+    height: 24px;   
   }
   
    }
@@ -118,7 +132,8 @@
     position: absolute;
     width: 16em;
     height: 16em;
-    top: 50px;
+    top: 40px;
+    right: 0px;
     overflow: hidden;
     background-color: #fff;
     border-radius: 10px;
@@ -234,7 +249,7 @@
     
   }
 }
-.main-setofnotes-container { 
+.main-setofnotes-container, .main-messages-container { 
   width: 100%;
   height: 100%;
   position: fixed;
@@ -247,7 +262,7 @@
 
 }
 
-.main-setofnotes {
+.main-setofnotes, .main-messages {
   box-sizing: border-box;
   position: fixed;
    width: 70vw;
@@ -260,6 +275,225 @@
    border-radius: 10px;
    z-index: 1002;
  
+.main-messages-header{
+   width: 100%;
+   height: 80px;
+   border-top-left-radius: 10px;
+   border-top-right-radius: 10px;
+   border-bottom: 1px solid var(--toolbar-border-color);
+   
+   .closebutton {
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+
+     
+   .messages-closebutton-image{
+    height: 30px;
+    width: 30px;
+    opacity: 80%;
+    }
+   }
+}
+
+.main-messages-body{
+   @include flex(row,default,default);
+   box-sizing: border-box;
+   width: 100%;
+   height: calc(80vh - 80px);
+   border-bottom-left-radius: 10px;
+   border-bottom-right-radius: 10px;
+
+   .message-body-left-section{
+
+    @include flex(column,default,default);
+
+      width: 35%;
+      height: calc(80vh - 80px);
+      border-right: 1px solid var(--toolbar-border-color);
+
+      .messages-search{
+        @include flex(row);
+         width: 100%;
+         height: 60px;
+         
+
+
+         .search-user{
+           height: 22px;
+           font-size: 19px;
+           outline: none;
+           font-family: "Poppins",sans-serif;
+           font-weight: 400;
+           font-size: .9em;
+           padding: 2px;
+           font-weight: 300;
+           border: 1px solid var(--primary-border-color);
+           padding-left: 10px;
+           width: 70%;
+           background-color: var(--toolbar-color);
+           color: var(-primary-text-color);
+         }
+
+         .search-user-button{
+          height: 28px;
+          width: 35px;
+          border: 1px solid var(--primary-border-color);
+
+          .search-img{
+             height: 14px;
+             width: 14px;
+             opacity: 70%;
+             cursor: pointer;
+
+             &:active{
+              opacity: 50%;
+             }
+          }
+         }
+      }
+      .found-users-container {
+        background-color: var(--tertiary-body-color);
+        box-sizing: inherit;
+        height: 100%;
+        margin-bottom: 10px;
+        overflow-y: scroll;
+        @include flex(column,default,default);
+        position: relative;
+        
+
+        &.noflex{
+           @include flex(column,center,center);           
+        }
+
+        .no-user-found{
+          text-align: center;
+           margin-top: 70px;
+           font-size: 0.9em;
+           color: var(--tertiary-text-color);
+        } 
+
+
+       .each-friends{  
+           @include flex(row,flex-start,center);
+           height: 60px;
+           box-sizing: border-box;
+           width: 100%;
+
+           &:hover{
+             background-color: var(--hover-body-color);
+           }
+        
+        .each-friends-profile-container{
+           @include flex(row);
+           padding-left: 15px;
+
+          .each-friends-profile{
+            height: 30px;
+            width: 30px;
+            border-radius: 50px;             
+          }
+        }
+
+        .each-friends-text-container{
+           @include flex(column,default,default);
+           padding-left: 10px;
+           width: calc(100% - 55px);
+
+           .each-friends-name{
+             margin: 0px;
+           }
+
+           .each-friends-message{
+            color: var(--tertiary-text-color);
+            margin: 0px;            
+            font-size: .8em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+           }
+        }
+
+
+       }
+
+
+
+      }
+   }
+   
+   .message-body-right-section{
+    width: 65%;
+    height: calc(100% - 10px);  
+    box-sizing: border-box;
+    @include flex(column,default,default);
+
+    .all-messages-container {
+      @include flex(column-reverse,default,default);
+      overflow: auto;
+      height: 400px;
+      padding: 0px 10px 0px 10px;
+      
+      
+
+      .each-message-container{    
+        @include flex(row,flex-start,default);      
+        margin: 5px 0px 5px 0px;
+        border-radius: 10px;
+        margin-right: 30%;
+  
+  
+        &.user-message {
+          @include flex(row,flex-end,default);
+          margin-right: 0%;
+          margin-left: 30%;
+        }
+  
+        .each-message-text{
+          border-radius: 10px;
+          display: inline;
+          padding: 2px 7px 2px 7px;
+          margin: 5px 0px 5px 0px;
+          background-color: lightgreen;
+  
+          &.user-text{
+            background-color: lightblue;
+          }
+        }
+      }
+    }
+    
+
+    .main-chat{
+      width: 100%;
+      height: 50px;
+      @include flex(row,flex-end,center);
+      
+
+      .input-message {
+        outline: none;
+        border-radius: 10px;
+        font-style: var(--primary-font);
+        width: 250px;
+        font-size: 1em;
+        font-weight: 300;
+        color: var(--primary-text-color);
+        border: 1px solid var(--primary-border-color);
+        background-color: var(--tertiary-body-color);
+        height:20px;
+        padding: 4px 5px 4px 5px;
+        margin-right: 10%;
+
+      }
+    }
+   }
+  
+
+   
+}
 
 .SON-toolbar-relative {
   position: fixed; 

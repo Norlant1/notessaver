@@ -4,7 +4,7 @@ import useAuth from './useAuth'
 
 const useResolution = () => {
 
-  const {setIsMenu,setSetOfNotes,isMenuMobile,setIsMenuMobile} = useAuth()
+  const {setIsMenu,setSetOfNotes,isMenuMobile,setIsMenuMobile,setIsMessage} = useAuth()
   const [isMobile,setIsMobile] = useState(false)
   const [resolution,setResolution] = useState(window.innerWidth)
 
@@ -32,6 +32,7 @@ const useResolution = () => {
         setIsMobile(true)
         setIsMenu(false)
         setSetOfNotes(false)
+        setIsMessage(false)
         
       }
       

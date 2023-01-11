@@ -19,7 +19,9 @@ const Header = () => {
          setIsMenuMobile,isMenuMobile,
          setHistoryState,
          dataImage,setDataImage,error,
-         setIsLoading,isLoading,setUserRoles,userRoles
+         setIsLoading,isLoading,
+         setUserRoles,userRoles,
+         isMessage,setIsMessage
         } = useAuth()
 
   const navigate = useNavigate()
@@ -45,6 +47,9 @@ const Header = () => {
 
 
 
+  const pcSettings = () => {
+    setIsMenu(prev => !prev)
+  }
 
 
   let loadedImages = null
@@ -54,7 +59,7 @@ const Header = () => {
       
     
       const base64String = _arrayBufferToBase64(dataImage.data?.img?.data?.data)
-      loadedImages = <img src={`data:image/png;base64,${base64String}`} style={{marginLeft:'20px',borderRadius:'50px',height:'32px',width:'32px'}}/> 
+      loadedImages = <img className='loadedimage' src={`data:image/png;base64,${base64String}`} onClick={pcSettings}/> 
     
   }
 
@@ -117,11 +122,11 @@ const Header = () => {
     
   }
 
-
-  const pcSettings = () => {
-    setIsMenu(prev => !prev)
+  const pcMessages = () => {
+    setIsMessage(prev => !prev)
   }
 
+ 
   const SetofNotes = () => {
     setSetOfNotes(true)
     setIsMenu(false)
@@ -142,10 +147,7 @@ const Header = () => {
   return (
   
     <header className="public-header" >
-         {userRoles.indexOf('admin') !== -1 && location.pathname === '/dashboard' && <div className='admin-box' style={!isMobile ? {}:{right:'110px'}} onClick={adminRoute}>
-           <img className='admin-image' src={require('../images/admins.png')} />
-           <label htmlFor="" className='admin-text'>admin</label>
-         </div>}
+         
          <article className='public-header-left'>
           <img className='note-header-icon' src={require('../images/main.png')} />
           <ul className='note-header-left-text'>NotePad Online_</ul>
@@ -162,10 +164,14 @@ const Header = () => {
 
         {(user && location.pathname === '/dashboard' || location.pathname === '/dashboard/') && 
          <div className='auth-link'>
-           {!isMobile && <p className='header-username'>{user}</p>}
-           {!isMobile && !isLoading && loadedImages && !error ? loadedImages : !isMobile && !isLoading && !error && dataImage.status === 204 && <img src={require('../images/profile3.jpg')} style={{border:'5px solid #272727',borderRadius:'50px',marginLeft:'20px',borderRadius:'50px',height:'32px',width:'32px'}}/>}
-            <button className='menu-button' onClick={!isMobile ? pcSettings : mobileSettings }><img className='profile-menu' src={require('../images/menuButton.png')}/></button>
-                       
+           {!isMobile && <button className='menu-button' onClick={pcMessages}><img className='profile-menu' src={require('../images/chatIcon.png')}/></button>}
+           {!isMobile && !isLoading && loadedImages && !error ? loadedImages : !isMobile && !isLoading && !error && dataImage.status === 204 && <img src={require('../images/profile3.jpg')} onClick={pcSettings} style={{border:'5px solid #272727',borderRadius:'50px',marginLeft:'13px',borderRadius:'50px',height:'32px',width:'32px',cursor:'pointer'}}/>}
+           {isMobile && <button className='menu-button' onClick={!isMobile ? pcSettings : mobileSettings }><img className='profile-menu' src={require('../images/menuButton.png')}/></button>}
+           {userRoles.indexOf('admin') !== -1 && location.pathname === '/dashboard' && <div className='admin-box' style={!isMobile ? {}:{right:'110px'}} onClick={adminRoute}>
+           <img className='admin-image' src={require('../images/admins.png')} />
+           <label htmlFor="" className='admin-text'>admin</label>
+         </div>}
+
             <CSSTransition  
                 classNames='user-setting'
                 timeout={{exit:500}}
